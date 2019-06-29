@@ -14,7 +14,7 @@
       <td>{{user.name}}</td>
       <td>{{user.username}}</td>
       <td>
-        <button class="btn btn-info mr-3" (click)="addUser()"><i class="fa fa-edit"></i></button>
+        <button class="btn btn-info mr-3" (click)="editUser(user)"><i class="fa fa-edit"></i></button>
         <button class="btn btn-danger" (click)="remove(user.id)"><i class="fa fa-remove"></i></button>
       </td>
     </tr>
@@ -30,6 +30,8 @@
   <a (click)="logout()" class="float">
     <i class="fa fa-sign-out my-float"></i>
   </a>
-</div>
 
-<app-user-form></app-user-form>
+  <a (click)="addUser()" class="float-add">
+    <i class="fa fa-plus my-float"></i>
+  </a>
+</div>

@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {UserService} from '../user.service';
 import {AuthService} from '../auth.service';
 import {User} from '../user.model';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {UserFormComponent} from '../user-form/user-form.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -13,7 +15,8 @@ export class DashboardComponent implements OnInit {
 
   constructor(
     private userService: UserService,
-    private authService: AuthService
+    private authService: AuthService,
+    private modalService: NgbModal
   ) {
   }
 
@@ -24,9 +27,27 @@ export class DashboardComponent implements OnInit {
       });
   }
 
-  addUser() {
-    this.userService.addUser({name: 'Lisa', username: 'lisa', password: 'lisa'} as User)
-      .subscribe((newUser: User) => this.users.push(newUser));
+  editUser(user: User): void {
+    const modalRef = this.modalService.open(UserFormComponent);
+    modalRef.componentInstance.user = user;
+    modalRef.result.then((editedUser: User) => {
+      this.userService.editUser(editedUser)
+        .subscribe(() => {
+          const userIndex = this.users.findIndex((u: User) => u.id === editedUser.id);
+          this.users.splice(userIndex, 1, editedUser);
+        });
+    }).catch(() => {});
+  }
+
+  addUser(): void {
+    const modalRef = this.modalService.open(UserFormComponent);
+    modalRef.componentInstance.user = {};
+    modalRef.result.then((newUser: User) => {
+      this.userService.addUser(newUser)
+        .subscribe((userWithId) => {
+          this.users.push(userWithId);
+        });
+    }).catch(() => {});
   }
 
   remove(id: number) {

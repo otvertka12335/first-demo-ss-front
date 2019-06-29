@@ -10,7 +10,7 @@ import {map} from 'rxjs/operators';
 export class UserService {
   private usersUrl = 'api/users';
   httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    headers: new HttpHeaders({'Content-Type': 'application/json'})
   };
 
   constructor(
@@ -26,12 +26,17 @@ export class UserService {
     const url = `${this.usersUrl}/?username=${username}&password=${password}`;
     return this.http.get<User[]>(url)
       .pipe(
-        map((users: User[]) => users.length > 0)
+        map((users: User[]) => users
+          .every(checkedUser => checkedUser.username === username && checkedUser.password === password))
       );
   }
 
   addUser(user: User): Observable<User> {
     return this.http.post<User>(this.usersUrl, user);
+  }
+
+  editUser(user: User): Observable<User> {
+    return this.http.put<User>(this.usersUrl, user, this.httpOptions);
   }
 
   deleteHero(userId: number): Observable<User> {
