@@ -1,6 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Router} from '@angular/router';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {User} from './user.model';
 import {map} from 'rxjs/operators';
@@ -10,6 +9,9 @@ import {map} from 'rxjs/operators';
 })
 export class UserService {
   private usersUrl = 'api/users';
+  httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  };
 
   constructor(
     private http: HttpClient
@@ -28,13 +30,12 @@ export class UserService {
       );
   }
 
-  login(username: string, password: string) {
-    localStorage.setItem('isAuth', 'true');
-    this.hasUser(username, password);
-    // this.router.navigate(['dashboard']);
+  addUser(user: User): Observable<User> {
+    return this.http.post<User>(this.usersUrl, user);
   }
 
-  logout() {
-    localStorage.clear();
+  deleteHero(userId: number): Observable<User> {
+    const url = `${this.usersUrl}/${userId}`;
+    return this.http.delete<User>(url, this.httpOptions);
   }
 }

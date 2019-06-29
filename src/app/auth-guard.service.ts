@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import {ActivatedRouteSnapshot, CanActivate, Router} from '@angular/router';
+import {AuthService} from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,29 +10,21 @@ export class AuthGuardService implements CanActivate {
   constructor(private router: Router) {
   }
 
-  canActivate(route: ActivatedRouteSnapshot): boolean {
-    if (route.routeConfig.path === 'login') {
-      return this.loginGuard();
-    } else {
-      return this.dashBoardGuard();
-    }
+  canActivate(route: ActivatedRouteSnapshot): Promise<boolean> {
+    return route.routeConfig.path === 'login' ? this.loginGuard() : this.dashBoardGuard();
   }
 
-  dashBoardGuard() {
-    const hasToken: boolean = !!localStorage.getItem('isAuth');
-
-    if (!hasToken) {
-      this.router.navigate(['login']);
+  async dashBoardGuard(): Promise<boolean> {
+    if (!AuthService.isAuthenticated()) {
+      await this.router.navigate(['login']);
       return false;
     }
     return true;
   }
 
-  loginGuard() {
-    const hasToken: boolean = !!localStorage.getItem('isAuth');
-
-    if (hasToken) {
-      this.router.navigate(['dashboard']);
+  async loginGuard(): Promise<boolean> {
+    if (AuthService.isAuthenticated()) {
+      await this.router.navigate(['dashboard']);
       return false;
     }
     return true;
