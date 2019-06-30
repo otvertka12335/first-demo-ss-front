@@ -10,9 +10,9 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
   providers: [NgbModalConfig, NgbModal]
 })
 export class UserFormComponent implements OnInit {
-  @Input() private user: User;
+  @Input() user: User;
   @Output() newUser: EventEmitter<User>;
-  private myForm: FormGroup;
+  myForm: FormGroup;
 
   constructor(public activeModal: NgbActiveModal,
               private formBuilder: FormBuilder) {
@@ -27,14 +27,15 @@ export class UserFormComponent implements OnInit {
     });
   }
 
+  // Return new or edited user if form valid
   getUserBack(): boolean {
-    if (this.myForm.status === 'VALID') {
+    if (this.myForm.valid) {
       this.activeModal.close({
         id: this.user.id,
         name: this.myForm.controls.name.value,
         username: this.myForm.controls.username.value,
         password: this.myForm.controls.password.value
-      } as User);
+      });
     }
     return false;
   }

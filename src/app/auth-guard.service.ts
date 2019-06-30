@@ -14,6 +14,7 @@ export class AuthGuardService implements CanActivate {
     return route.routeConfig.path === 'login' ? this.loginGuard() : this.dashBoardGuard();
   }
 
+  // If don't logged he can open only login page
   async dashBoardGuard(): Promise<boolean> {
     if (!AuthService.isAuthenticated()) {
       await this.router.navigate(['login']);
@@ -22,6 +23,7 @@ export class AuthGuardService implements CanActivate {
     return true;
   }
 
+  // If user already logged he can't go to login page
   async loginGuard(): Promise<boolean> {
     if (AuthService.isAuthenticated()) {
       await this.router.navigate(['dashboard']);

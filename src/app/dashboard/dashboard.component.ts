@@ -11,7 +11,7 @@ import {UserFormComponent} from '../user-form/user-form.component';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-  private users: User[];
+  users: User[];
 
   constructor(
     private userService: UserService,
@@ -27,6 +27,7 @@ export class DashboardComponent implements OnInit {
       });
   }
 
+  // Open modal where we can edit user and send result to user service
   editUser(user: User): void {
     const modalRef = this.modalService.open(UserFormComponent);
     modalRef.componentInstance.user = user;
@@ -39,6 +40,7 @@ export class DashboardComponent implements OnInit {
     }).catch(() => {});
   }
 
+  // Open modal to add user and send result to user service
   addUser(): void {
     const modalRef = this.modalService.open(UserFormComponent);
     modalRef.componentInstance.user = {};
@@ -50,13 +52,15 @@ export class DashboardComponent implements OnInit {
     }).catch(() => {});
   }
 
+  // Send user id to user service and remove him from table
   remove(id: number) {
-    this.userService.deleteHero(id)
-      .subscribe(() => this.users = this.users.filter(user => user.id !== id));
+    if (confirm('Are you sure want to delete user?')) {
+      this.userService.deleteHero(id)
+        .subscribe(() => this.users = this.users.filter(user => user.id !== id));
+    }
   }
 
   async logout(): Promise<void> {
     await this.authService.logout();
   }
-
 }

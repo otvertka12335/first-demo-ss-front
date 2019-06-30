@@ -5,6 +5,8 @@ import {User} from './user.model';
 @Injectable({
   providedIn: 'root'
 })
+
+// Fake backend
 export class InMemoryDataService implements InMemoryDbService {
 
   constructor() {
