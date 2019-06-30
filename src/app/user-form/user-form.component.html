@@ -2,7 +2,7 @@
   <h4 class="modal-title" id="modal-basic-title">{{user.id ? 'Edit user' : 'Add user'}}</h4>
 </div>
 <div class="modal-body">
-  <form [formGroup]="myForm">
+  <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
     <div class="form-group">
       <label for="name">Name</label>
       <input type="text" class="form-control" [formControl]="myForm.controls.name" id="name"
@@ -21,6 +21,6 @@
              placeholder="Password">
       <small class="form-text text-danger" *ngIf="!myForm.controls.password.valid">This field is required</small>
     </div>
-    <button type="submit" class="btn btn-primary w-100" (click)="getUserBack()">Save</button>
+    <button type="submit" class="btn btn-primary w-100">Save</button>
   </form>
 </div>

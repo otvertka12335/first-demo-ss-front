@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {NgbActiveModal, NgbModal, NgbModalConfig} from '@ng-bootstrap/ng-bootstrap';
-import {User} from '../user.model';
+import {User} from '../models/user.model';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 @Component({
@@ -28,7 +28,7 @@ export class UserFormComponent implements OnInit {
   }
 
   // Return new or edited user if form valid
-  getUserBack(): boolean {
+  onSubmit(): void {
     if (this.myForm.valid) {
       this.activeModal.close({
         id: this.user.id,
@@ -37,6 +37,5 @@ export class UserFormComponent implements OnInit {
         password: this.myForm.controls.password.value
       });
     }
-    return false;
   }
 }

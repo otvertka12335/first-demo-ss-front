@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {UserService} from '../user.service';
-import {AuthService} from '../auth.service';
-import {User} from '../user.model';
+import {UserService} from '../services/user.service';
+import {AuthService} from '../services/auth.service';
+import {User} from '../models/user.model';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {UserFormComponent} from '../user-form/user-form.component';
 
