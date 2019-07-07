@@ -1,8 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {AbstractControl, Form, FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {AbstractControl, FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {User} from '../models/user.model';
 import {UserService} from '../services/user.service';
 import {Router} from '@angular/router';
+import {CheckingUniqueness} from '../validators/CheckingUniqueness';
 
 @Component({
   selector: 'app-registration',
@@ -15,20 +16,20 @@ export class RegistrationComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
               private userService: UserService,
               private router: Router) {
-    this.registrationForm = formBuilder.group({
+  }
+
+  // Building form group
+  ngOnInit() {
+    this.registrationForm = this.formBuilder.group({
       name: ['', Validators.required],
       username: ['', Validators.required],
       password: ['', Validators.required],
-      addressGroup: formBuilder.group({
+      addressGroup: this.formBuilder.group({
         address: ['', Validators.required],
         addressCheckbox: true
       }),
-      hobbies: formBuilder.array([
-        this.newHobby()
-      ]),
-      phoneNumbers: formBuilder.array([
-        this.newPhoneNumber()
-      ])
+      hobbies: this.formBuilder.array([]),
+      phoneNumbers: this.formBuilder.array([])
     });
 
     this.addressGroup.get('addressCheckbox').valueChanges
@@ -42,53 +43,62 @@ export class RegistrationComponent implements OnInit {
       });
   }
 
-  get hobbies(): FormArray {
+  // Return hobbies form array for better access
+  get hobbiesGroup(): FormArray {
     return this.registrationForm.get('hobbies') as FormArray;
   }
 
-  get phoneNumbers(): FormArray {
+  // Return phone numbers form array for better access
+  get phoneNumbersGroup(): FormArray {
     return this.registrationForm.get('phoneNumbers') as FormArray;
   }
 
+  // Return address group for better access
   get addressGroup(): AbstractControl {
     return this.registrationForm.get('addressGroup');
   }
 
+  // Event on add one more hobby
   addHobby(): void {
-    this.hobbies.push(this.newHobby());
+    this.hobbiesGroup.push(this.newHobby());
   }
 
+  // Event on add one more phone number
   addPhoneNumber(): void {
-    this.phoneNumbers.push(this.newPhoneNumber());
+    this.phoneNumbersGroup.push(this.newPhoneNumber());
   }
 
+  // Return form group for new hobby
   newHobby(): FormGroup {
     return this.formBuilder.group({
-      hobbyName: ['', Validators.required]
+      hobbyName: ['', Validators.compose([
+        Validators.required, CheckingUniqueness(this.hobbiesGroup, 'hobbyName')
+      ])]
     });
   }
 
+  // Return form group for new phoneNumber
   newPhoneNumber(): FormGroup {
     return this.formBuilder.group({
-      phoneNumber: ['', Validators.required]
+      phoneNumber: ['', Validators.compose([
+        Validators.required, CheckingUniqueness(this.phoneNumbersGroup, 'phoneNumber')
+      ])]
     });
   }
 
-  ngOnInit() {
-  }
-
+  // Creating new user and saving him in db
   createUser(): void {
     const name = this.registrationForm.get('name').value;
     const username = this.registrationForm.get('username').value;
     const password = this.registrationForm.get('password').value;
     const address = this.addressGroup.get('address').value;
     const hobbies = [];
-    const phoneNumbers = [];
-    for (let i = 0; i < this.hobbies.length; i++) {
-      hobbies.push(this.hobbies.at(i).get('hobbyName').value);
+    for (let i = 0; i < this.phoneNumbersGroup.length; i++) {
+      hobbies.push(this.hobbiesGroup.at(i).get('hobbyName').value);
     }
-    for (let i = 0; i < this.phoneNumbers.length; i++) {
-      phoneNumbers.push(this.phoneNumbers.at(i).get('phoneNumber').value);
+    const phoneNumbers = [];
+    for (let i = 0; i < this.phoneNumbersGroup.length; i++) {
+      phoneNumbers.push(this.phoneNumbersGroup.at(i).get('phoneNumber').value);
     }
     const newUser: User = {name, username, password, address, hobbies, phoneNumbers} as User;
     this.userService.addUser(newUser)
@@ -97,5 +107,4 @@ export class RegistrationComponent implements OnInit {
         await this.router.navigate(['dashboard']);
       });
   }
-
 }

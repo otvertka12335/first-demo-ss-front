@@ -9,11 +9,11 @@
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let user of users;" class="info" (click)="showInfo(user)">
+    <tr *ngFor="let user of users" class="info" (click)="showInfo(user)">
       <th scope="row">{{user.id}}</th>
       <td>{{user.name}}</td>
       <td>{{user.username}}</td>
-      <td>
+      <td (click)="$event.stopPropagation()">
         <button class="btn btn-info mr-3" (click)="editUser(user)"><i class="fa fa-edit"></i></button>
         <button class="btn btn-danger" (click)="remove(user.id)"><i class="fa fa-remove"></i></button>
       </td>

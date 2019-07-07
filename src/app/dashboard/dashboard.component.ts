@@ -4,6 +4,7 @@ import {AuthService} from '../services/auth.service';
 import {User} from '../models/user.model';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {UserFormComponent} from '../user-form/user-form.component';
+import {UserInfoComponent} from '../user-info/user-info.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -66,7 +67,9 @@ export class DashboardComponent implements OnInit {
     await this.authService.logout();
   }
 
+  // Show modal form with information about user
   showInfo(user: User): void {
-    console.log(user);
+    const modalRef = this.modalService.open(UserInfoComponent);
+    modalRef.componentInstance.user = user;
   }
 }

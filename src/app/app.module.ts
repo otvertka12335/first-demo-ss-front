@@ -36,6 +36,6 @@ import { UserInfoComponent } from './user-info/user-info.component';
   ],
   providers: [],
   bootstrap: [AppComponent],
-  entryComponents: [UserFormComponent]
+  entryComponents: [UserFormComponent, UserInfoComponent]
 })
 export class AppModule { }
