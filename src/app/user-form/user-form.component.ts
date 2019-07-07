@@ -34,7 +34,9 @@ export class UserFormComponent implements OnInit {
         id: this.user.id,
         name: this.myForm.controls.name.value,
         username: this.myForm.controls.username.value,
-        password: this.myForm.controls.password.value
+        password: this.myForm.controls.password.value,
+        hobbies: this.user.hobbies,
+        phoneNumbers: this.user.phoneNumbers,
       });
     }
   }
