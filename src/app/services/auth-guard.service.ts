@@ -11,7 +11,8 @@ export class AuthGuardService implements CanActivate {
   }
 
   canActivate(route: ActivatedRouteSnapshot): Promise<boolean> {
-    return route.routeConfig.path === 'login' ? this.loginGuard() : this.dashBoardGuard();
+    return route.routeConfig.path === 'login' || route.routeConfig.path === 'registration'
+      ? this.loginGuard() : this.dashBoardGuard();
   }
 
   // If don't logged he can open only login page

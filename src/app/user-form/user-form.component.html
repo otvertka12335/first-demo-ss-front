@@ -7,19 +7,28 @@
       <label for="name">Name</label>
       <input type="text" class="form-control" [formControl]="myForm.controls.name" id="name"
              placeholder="Name">
-      <small class="form-text text-danger" *ngIf="!myForm.controls.name.valid">This field is required</small>
+      <small class="form-text text-danger"
+             *ngIf="!myForm.controls.name.valid && myForm.get('name').dirty">
+        This field is required
+      </small>
     </div>
     <div class="form-group">
       <label for="username">Username</label>
       <input type="text" class="form-control" [formControl]="myForm.controls.username" id="username"
              placeholder="Username">
-      <small class="form-text text-danger" *ngIf="!myForm.controls.username.valid">This field is required</small>
+      <small class="form-text text-danger"
+             *ngIf="!myForm.controls.username.valid && myForm.get('username').dirty">
+        This field is required
+      </small>
     </div>
     <div class="form-group">
       <label for="password">Password</label>
       <input type="password" class="form-control" [formControl]="myForm.controls.password" id="password"
              placeholder="Password">
-      <small class="form-text text-danger" *ngIf="!myForm.controls.password.valid">This field is required</small>
+      <small class="form-text text-danger"
+             *ngIf="!myForm.controls.password.valid &&myForm.get('password').dirty">
+        This field is required
+      </small>
     </div>
     <button type="submit" class="btn btn-primary w-100">Save</button>
   </form>

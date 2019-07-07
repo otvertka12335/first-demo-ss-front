@@ -9,7 +9,7 @@
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let user of users;">
+    <tr *ngFor="let user of users;" class="info" (click)="showInfo(user)">
       <th scope="row">{{user.id}}</th>
       <td>{{user.name}}</td>
       <td>{{user.username}}</td>

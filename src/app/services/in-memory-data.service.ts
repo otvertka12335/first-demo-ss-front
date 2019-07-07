@@ -14,10 +14,14 @@ export class InMemoryDataService implements InMemoryDbService {
 
   createDb() {
     const users: User[] = [
-      new User(1, 'Rick Sanchez', 'rick', 'rick'),
-      new User(2, 'Morty Smith', 'morty', 'morty'),
-      new User(3, 'Homer Simpson', 'homer', 'homer'),
-      new User(4, 'Bart Simpson', 'elbarto', 'elbarto'),
+      new User(1, 'Rick Sanchez', 'rick', 'rick',
+        ['+380984556123'], ['adventures'], 'NY'),
+      new User(2, 'Morty Smith', 'morty', 'morty',
+        ['+380984556123'], ['adventures'], 'NY'),
+      new User(3, 'Homer Simpson', 'homer', 'homer',
+        ['+380984556123'], ['adventures'], 'NY'),
+      new User(4, 'Bart Simpson', 'elbarto', 'elbarto',
+        ['+380984556123'], ['adventures'], 'NY'),
     ];
     return {users};
   }

@@ -37,7 +37,8 @@ export class DashboardComponent implements OnInit {
           const userIndex = this.users.findIndex((u: User) => u.id === editedUser.id);
           this.users.splice(userIndex, 1, editedUser);
         });
-    }).catch(() => {});
+    }).catch(() => {
+    });
   }
 
   // Open modal to add user and send result to user service
@@ -49,7 +50,8 @@ export class DashboardComponent implements OnInit {
         .subscribe((userWithId) => {
           this.users.push(userWithId);
         });
-    }).catch(() => {});
+    }).catch(() => {
+    });
   }
 
   // Send user id to user service and remove him from table
@@ -62,5 +64,9 @@ export class DashboardComponent implements OnInit {
 
   async logout(): Promise<void> {
     await this.authService.logout();
+  }
+
+  showInfo(user: User): void {
+    console.log(user);
   }
 }

@@ -11,13 +11,17 @@ import {InMemoryDataService} from './services/in-memory-data.service';
 import {HttpClientInMemoryWebApiModule} from 'angular-in-memory-web-api';
 import { UserFormComponent } from './user-form/user-form.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { RegistrationComponent } from './registration/registration.component';
+import { UserInfoComponent } from './user-info/user-info.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     DashboardComponent,
-    UserFormComponent
+    UserFormComponent,
+    RegistrationComponent,
+    UserInfoComponent
   ],
   imports: [
     BrowserModule,
