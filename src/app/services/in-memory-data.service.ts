@@ -21,7 +21,7 @@ export class InMemoryDataService implements InMemoryDbService {
       new User(3, 'Homer Simpson', 'homer', 'homer',
         ['+380984556123'], ['adventures'], 'NY'),
       new User(4, 'Bart Simpson', 'elbarto', 'elbarto',
-        ['+380984556123', '+380984556123'], ['adventures', 'jerking'], 'NY'),
+        ['+380984556123', '+380984556123'], ['adventures', 'games'], 'NY'),
     ];
     return {users};
   }
