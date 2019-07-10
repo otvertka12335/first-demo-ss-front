@@ -2,13 +2,14 @@ import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {LoginComponent} from './login/login.component';
 import {DashboardComponent} from './dashboard/dashboard.component';
-import {AuthGuardService} from './services/auth-guard.service';
 import {RegistrationComponent} from './registration/registration.component';
+import {ProjectComponent} from './project/project.component';
 
 const routes: Routes = [
-  {path: 'login', component: LoginComponent, canActivate: [AuthGuardService]},
-  {path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuardService]},
-  {path: 'registration', component: RegistrationComponent, canActivate: [AuthGuardService]},
+  {path: 'login', component: LoginComponent},
+  {path: 'dashboard', component: DashboardComponent},
+  {path: 'registration', component: RegistrationComponent},
+  {path: 'project', component: ProjectComponent},
   {path: '**', redirectTo: 'login', pathMatch: 'full'}
 ];
 

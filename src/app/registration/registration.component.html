@@ -6,84 +6,36 @@
           <h5 class="card-title text-center">Registration</h5>
           <form class="form-signin" [formGroup]="registrationForm" (ngSubmit)="createUser()">
             <div class="form-label-group">
-              <input type="text" id="name" class="form-control" name="name"
-                     placeholder="Name" autofocus formControlName="name">
-              <label for="name">Name</label>
-              <small class="form-text text-danger"
-                     *ngIf="!registrationForm.get('name').valid && registrationForm.get('name').dirty">
-                This field is required
-              </small>
-            </div>
-            <div class="form-label-group">
               <input type="text" id="username" class="form-control" name="username"
                      placeholder="Username" formControlName="username">
               <label for="username">Username</label>
-              <small class="form-text text-danger"
-                     *ngIf="!registrationForm.get('username').valid && registrationForm.get('username').dirty">
-                This field is required
-              </small>
+              <div *ngIf="registrationForm.get('username').invalid &&
+              (registrationForm.get('username').dirty || registrationForm.get('username').touched)">
+                <small class="form-text text-danger"
+                       *ngIf="registrationForm.get('username').errors.required">
+                  Username is required.
+                </small>
+                <small class="form-text text-danger"
+                       *ngIf="registrationForm.get('username').errors.email">
+                  Username must be email address
+                </small>
+              </div>
             </div>
             <div class="form-label-group">
               <input type="password" id="password" class="form-control" name="password"
                      placeholder="Password" formControlName="password">
               <label for="password">Password</label>
-              <small class="form-text text-danger"
-                     *ngIf="!registrationForm.get('password').valid && registrationForm.get('password').dirty">
-                This field is required
-              </small>
-            </div>
-            <div class="form-label-group" [formGroup]="addressGroup">
-              <input type="text" id="address" class="form-control" name="address"
-                     placeholder="Address" required autofocus formControlName="address">
-              <label for="address">Address</label>
-              <small class="form-text text-danger"
-                     *ngIf="!addressGroup.get('address').valid && addressGroup.get('address').dirty">
-                This field is required
-              </small>
-              <input type="checkbox" name="addressCheckbox" id="addressCheckbox"
-                     formControlName="addressCheckbox"> Validation required
-            </div>
-            <div class="my-row my-2">
-              <h3 class="my-row-header">Hobbies</h3>
-              <a (click)="addHobby()"><i class="fa fa-plus"></i></a>
-            </div>
-            <hr>
-            <div class="form-label-group" [formGroup]="hobbyGroup"
-                 *ngFor="let hobbyGroup of hobbiesGroup.controls; let i = index;">
-              <input type="text" id="hobby{{i + 1}}" class="form-control" name="hobby{{i + 1}}"
-                     placeholder="Hobby #{{i + 1}}" autofocus formControlName="hobbyName">
-              <label for="hobby{{i + 1}}">Hobby #{{i + 1}}</label>
-              <small class="form-text text-danger"
-                     *ngIf="!hobbyGroup.get('hobbyName').valid && hobbyGroup.get('hobbyName').dirty
-                     && hobbyGroup.get('hobbyName').hasError('required')">
-                This field is required
-              </small>
-              <small class="form-text text-danger"
-                     *ngIf="!hobbyGroup.get('hobbyName').valid && hobbyGroup.get('hobbyName').dirty
-                     && hobbyGroup.get('hobbyName').hasError('notUnique')">
-                This field must be unique
-              </small>
-            </div>
-            <div class="my-row my-2">
-              <h3 class="my-row-header">Phone numbers</h3>
-              <a (click)="addPhoneNumber()"><i class="fa fa-plus"></i></a>
-            </div>
-            <hr>
-            <div class="form-label-group" [formGroup]="phoneNumberGroup"
-                 *ngFor="let phoneNumberGroup of phoneNumbersGroup.controls; let i = index;">
-              <input type="text" id="phoneNumber{{i + 1}}" class="form-control" name="phoneNumber{{i + 1}}"
-                     placeholder="Phone number #{{i + 1}}" autofocus formControlName="phoneNumber">
-              <label for="phoneNumber{{i + 1}}">Phone number #{{i + 1}}</label>
-              <small class="form-text text-danger"
-                     *ngIf="!phoneNumberGroup.get('phoneNumber').valid && phoneNumberGroup.get('phoneNumber').dirty
-                     && phoneNumberGroup.get('phoneNumber').hasError('required')">
-                This field is required
-              </small>
-              <small class="form-text text-danger"
-                     *ngIf="!phoneNumberGroup.get('phoneNumber').valid && phoneNumberGroup.get('phoneNumber').dirty
-                     && phoneNumberGroup.get('phoneNumber').hasError('notUnique')">
-                This field must be unique
-              </small>
+              <div *ngIf="registrationForm.get('password').invalid &&
+              (registrationForm.get('password').dirty || registrationForm.get('password').touched)">
+                <small class="form-text text-danger"
+                       *ngIf="registrationForm.get('password').errors.required">
+                  Password is required.
+                </small>
+                <small class="form-text text-danger"
+                       *ngIf="registrationForm.get('password').errors.minlength">
+                  Password must be at least 6 characters long
+                </small>
+              </div>
             </div>
             <button
               class="btn btn-lg btn-primary btn-block text-uppercase"

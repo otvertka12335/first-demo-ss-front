@@ -1,0 +1,27 @@
+<!-- Page Content -->
+<div class="container">
+  <!-- Item Heading -->
+  <h1 class="my-4">{{project.name}}</h1>
+  <!-- Item Row -->
+  <div class="row">
+    <div class="col-md-8">
+      <h3 class="my-3">Project Description</h3>
+      <p>{{project.description}}</p>
+    </div>
+    <div class="col-md-4">
+      <h3 class="my-3">Project Team</h3>
+      <ul class="list-group">
+        <li class="list-group-item" (click)="myFunc()">New <span class="badge">12</span></li>
+        <ul [hidden]="flag">
+          <li>ddddd</li>
+          <li>ddddd</li>
+          <li>ddddd</li>
+        </ul>
+        <li class="list-group-item">Deleted <span class="badge">5</span></li>
+        <li class="list-group-item">Warnings <span class="badge">3</span></li>
+      </ul>
+    </div>
+  </div>
+  <!-- /.row -->
+</div>
+<!-- /.container -->

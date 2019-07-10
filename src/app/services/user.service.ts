@@ -1,23 +1,17 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
-import {Observable, of} from 'rxjs';
+import {HttpClient, HttpParams} from '@angular/common/http';
+import {Observable} from 'rxjs';
 import {User} from '../models/user.model';
 import {map} from 'rxjs/operators';
-import {log} from 'util';
+import {environment} from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-  private usersUrl = 'api/users';
-  httpOptions = {
-    headers: new HttpHeaders({'Content-Type': 'application/json'})
-  };
+  private usersUrl = environment.Users;
 
-  constructor(
-    private http: HttpClient
-  ) {
-  }
+  constructor(private http: HttpClient) {  }
 
   // GET: get all users
   getUsers(): Observable<User[]> {
@@ -38,16 +32,5 @@ export class UserService {
   // POST: add new user
   addUser(user: User): Observable<User> {
     return this.http.post<User>(this.usersUrl, user);
-  }
-
-  // PUT: edit given user
-  editUser(user: User): Observable<User> {
-    return this.http.put<User>(this.usersUrl, user, this.httpOptions);
-  }
-
-  // DELETE: delete user by id
-  deleteHero(userId: number): Observable<User> {
-    const url = `${this.usersUrl}/${userId}`;
-    return this.http.delete<User>(url, this.httpOptions);
   }
 }
