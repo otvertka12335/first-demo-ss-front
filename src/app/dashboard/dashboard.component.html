@@ -9,19 +9,20 @@
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let user of users" class="info" (click)="showInfo(user)">
-      <th scope="row">{{user.id}}</th>
-      <td>{{user.name}}</td>
-      <td>{{user.username}}</td>
+    <tr *ngFor="let project of projects" class="info" (click)="showInfo(project)">
+      <th scope="row">{{project.id}}</th>
+      <td>{{project.name}}</td>
+      <td>{{project.description}}</td>
+      <td>{{project.user.username}}</td>
       <td (click)="$event.stopPropagation()">
-        <button class="btn btn-info mr-3" (click)="editUser(user)"><i class="fa fa-edit"></i></button>
-        <button class="btn btn-danger" (click)="remove(user.id)"><i class="fa fa-remove"></i></button>
+        <button class="btn btn-info mr-3" (click)="editProject(project)"><i class="fa fa-edit"></i></button>
+        <button class="btn btn-danger" (click)="removeProject(project.id_project)"><i class="fa fa-remove"></i></button>
       </td>
     </tr>
     <tr>
     </tbody>
   </table>
-  <div class="col-md-12" *ngIf="users && users.length === 0">
+  <div class="col-md-12" *ngIf="projects && projects.length === 0">
     <div class="alert alert-warning text-center">
       Table is empty
     </div>

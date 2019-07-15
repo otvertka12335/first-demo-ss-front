@@ -6,13 +6,15 @@ import {AppRoutingModule} from './app-routing.module';
 import {LoginComponent} from './login/login.component';
 import {DashboardComponent} from './dashboard/dashboard.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {RegistrationComponent} from './registration/registration.component';
-import { ProjectComponent } from './project/project.component';
+import {ProjectComponent} from './project/project.component';
 import {AngularFireModule} from '@angular/fire';
 import {AngularFireAuthModule} from '@angular/fire/auth';
-import {config} from 'rxjs';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {SnackbarModule} from 'ngx-snackbar';
+import {HttpInterceptorService} from './services/http-interceptor.service';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyA_sf-uY_LgmpuCR3BX4ptNgSIyZcR9WRc',
@@ -39,12 +41,22 @@ const firebaseConfig = {
     ReactiveFormsModule,
     HttpClientModule,
     NgbModule,
-  //  Firebase
+    //  Firebase
     AngularFireModule.initializeApp(firebaseConfig),
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    // ANGULAR
+    BrowserAnimationsModule,
+    SnackbarModule.forRoot()
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpInterceptorService,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent],
   entryComponents: []
 })
-export class AppModule { }
+export class AppModule {
+}

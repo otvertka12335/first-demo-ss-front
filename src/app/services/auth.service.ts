@@ -2,6 +2,8 @@ import {Injectable} from '@angular/core';
 import {UserService} from './user.service';
 import {Router} from '@angular/router';
 import {AngularFireAuth} from '@angular/fire/auth';
+import {HttpClient} from '@angular/common/http';
+import {User} from '../models/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +12,7 @@ export class AuthService {
 
   constructor(private userService: UserService,
               private router: Router,
+              private http: HttpClient,
               private afAuth: AngularFireAuth) {
     this.afAuth.authState.subscribe(user => {
       if (user) {
@@ -25,17 +28,27 @@ export class AuthService {
 
   // Check existence of token
   static isAuthenticated(): boolean {
-    const  user  =  JSON.parse(localStorage.getItem('user'));
-    return  user  !==  null;
+    const user = JSON.parse(localStorage.getItem('user'));
+    return user !== null;
   }
 
   async login(email: string, password: string) {
-    const result = await this.afAuth.auth.signInWithEmailAndPassword(email, password);
+    const result = await this.afAuth.auth.signInWithEmailAndPassword(email, password).then(() => {
+      this.http.get(`/users/${email}`).subscribe(res => {
+        localStorage.setItem('pgUser', JSON.stringify(res));
+      });
+    });
     this.router.navigate(['dashboard']);
   }
 
-  async register(email: string, password: string) {
-    const result = await this.afAuth.auth.createUserWithEmailAndPassword(email, password);
+  async register(email: string, password: string, name: string) {
+    const result = await this.afAuth.auth.createUserWithEmailAndPassword(email, password).then(res => {
+      const body = {
+        username: email,
+        name,
+      };
+      this.http.post('/users', body).subscribe();
+    });
     this.sendEmailVerification();
   }
 
@@ -50,24 +63,4 @@ export class AuthService {
     this.router.navigate(['login']);
   }
 
-  // If we have that user than save token and redirect to dashboard
-  // async login(username: string, password: string): Promise<boolean> {
-  //   let result = false;
-  //   await this.userService.hasUser(username, password)
-  //     .toPromise()
-  //     .then(async (response: boolean) => {
-  //       if (response) {
-  //         localStorage.setItem('isAuth', 'true');
-  //         await this.router.navigate(['dashboard']);
-  //         result = true;
-  //       }
-  //     });
-  //   return result;
-  // }
-
-  // // Logout user, clear local storage and redirect to login page
-  // async logout() {
-  //   localStorage.clear();
-  //   await this.router.navigate(['login']);
-  // }
 }

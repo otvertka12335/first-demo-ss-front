@@ -5,6 +5,7 @@ export class Project {
     private id: number,
     private name: string,
     private description: string,
-    private creator: User,
+    private createdAt: string,
+    private user: User,
   ) {  }
 }

@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthService} from '../services/auth.service';
+import {SnackbarService} from 'ngx-snackbar';
 
 @Component({
   selector: 'app-login',
@@ -11,7 +12,8 @@ export class LoginComponent implements OnInit {
   password: string;
   badCredentials: boolean;
 
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService,
+              private toster: SnackbarService) {
   }
 
   ngOnInit() {
@@ -19,8 +21,8 @@ export class LoginComponent implements OnInit {
 
   login(): void {
     this.authService.login(this.username, this.password);
-      // .then((value: boolean) => {
-      //   this.badCredentials = !value;
-      // });
+    //   // .then((value: boolean) => {
+    //   //   this.badCredentials = !value;
+    //   // });
   }
 }

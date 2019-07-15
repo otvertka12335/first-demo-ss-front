@@ -3,19 +3,18 @@ import {HttpClient, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {User} from '../models/user.model';
 import {map} from 'rxjs/operators';
-import {environment} from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-  private usersUrl = environment.Users;
 
-  constructor(private http: HttpClient) {  }
+  constructor(private http: HttpClient) {
+  }
 
   // GET: get all users
   getUsers(): Observable<User[]> {
-    return this.http.get<User[]>(this.usersUrl);
+    return this.http.get<User[]>('/users');
   }
 
   // Search user with given username and password
@@ -23,7 +22,7 @@ export class UserService {
     const params = new HttpParams()
       .set('username', username)
       .set('password', password);
-    return this.http.get<User[]>(this.usersUrl, {params})
+    return this.http.get<User[]>('/users', {params})
       .pipe(
         map((users: User[]) => users.length > 0)
       );
@@ -31,6 +30,11 @@ export class UserService {
 
   // POST: add new user
   addUser(user: User): Observable<User> {
-    return this.http.post<User>(this.usersUrl, user);
+    return this.http.post<User>('/users', user);
+  }
+
+  getPgUserFromStorage(): User {
+    return JSON.parse(localStorage.getItem('pgUser'));
+
   }
 }

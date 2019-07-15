@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Project} from '../models/project.model';
+import {ProjectService} from '../services/project.service';
 
 @Component({
   selector: 'app-project',
@@ -9,6 +10,7 @@ import {Project} from '../models/project.model';
 export class ProjectComponent implements OnInit {
 
   flag = true;
+  projects: any[];
   project = {
     id: 1,
     name: 'Test name',
@@ -22,7 +24,7 @@ export class ProjectComponent implements OnInit {
     creator: 'vkravchik'
   };
 
-  constructor() { }
+  constructor() {  }
 
   ngOnInit() {
   }

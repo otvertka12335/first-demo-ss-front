@@ -1,0 +1,8 @@
+.snackbar {
+  position: absolute;
+  width: 100%;
+  max-width: 300px;
+  right: 30px;
+  bottom: 30px;
+  z-index: 1;
+}

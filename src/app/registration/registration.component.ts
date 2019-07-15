@@ -21,6 +21,7 @@ export class RegistrationComponent implements OnInit {
   // Building form group
   ngOnInit() {
     this.registrationForm = this.formBuilder.group({
+      name: ['', Validators.compose([Validators.required, Validators.maxLength(20)])],
       username: ['', Validators.compose([Validators.required, Validators.email])],
       password: ['', Validators.compose([Validators.required, Validators.minLength(6)])],
     });
@@ -29,6 +30,7 @@ export class RegistrationComponent implements OnInit {
   createUser(): void {
     const email = this.registrationForm.get('username').value;
     const password = this.registrationForm.get('password').value;
-    this.authService.register(email, password);
+    const name = this.registrationForm.get('name').value;
+    this.authService.register(email, password, name);
   }
 }
