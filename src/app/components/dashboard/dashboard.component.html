@@ -13,10 +13,9 @@
       <th scope="row">{{project.id}}</th>
       <td>{{project.name}}</td>
       <td>{{project.description}}</td>
-      <td>{{project.user.username}}</td>
+      <td>{{project.userId.username}}</td>
       <td (click)="$event.stopPropagation()">
-        <button class="btn btn-info mr-3" (click)="editProject(project)"><i class="fa fa-edit"></i></button>
-        <button class="btn btn-danger" (click)="removeProject(project.id_project)"><i class="fa fa-remove"></i></button>
+        <button class="btn btn-danger" (click)="removeProject(project.id)"><i class="fa fa-remove"></i></button>
       </td>
     </tr>
     <tr>
@@ -32,7 +31,7 @@
     <i class="fa fa-sign-out float-text ml-1"></i>
   </a>
 
-  <a (click)="addUser()" class="float float-add">
+  <a (click)="addProject()" class="float float-add">
     <i class="fa fa-plus float-text"></i>
   </a>
 </div>

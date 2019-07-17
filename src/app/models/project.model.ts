@@ -2,10 +2,9 @@ import {User} from './user.model';
 
 export class Project {
   constructor(
-    private id: number,
-    private name: string,
-    private description: string,
-    private createdAt: string,
-    private user: User,
+    public id: number,
+    public name: string,
+    public description: string,
+    public userId: User,
   ) {  }
 }

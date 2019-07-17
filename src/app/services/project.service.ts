@@ -1,5 +1,4 @@
-import { Injectable } from '@angular/core';
-import {environment} from '../../environments/environment';
+import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {Project} from '../models/project.model';
@@ -9,7 +8,8 @@ import {Project} from '../models/project.model';
 })
 export class ProjectService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+  }
 
   // GET: get all projects current user
   getProjectsByUser(id: number): Observable<any> {
@@ -18,5 +18,9 @@ export class ProjectService {
 
   getProjects(): Observable<any> {
     return this.http.get('/projects');
+  }
+
+  create(project: Project): Observable<any> {
+    return this.http.post('/projects', project);
   }
 }

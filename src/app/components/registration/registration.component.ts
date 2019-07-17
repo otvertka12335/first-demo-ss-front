@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {UserService} from '../services/user.service';
+import {UserService} from '../../services/user.service';
 import {Router} from '@angular/router';
-import {AuthService} from '../services/auth.service';
+import {AuthService} from '../../services/auth.service';
 
 @Component({
   selector: 'app-registration',
@@ -26,6 +26,7 @@ export class RegistrationComponent implements OnInit {
       password: ['', Validators.compose([Validators.required, Validators.minLength(6)])],
     });
   }
+
   // Creating new user and saving him in db
   createUser(): void {
     const email = this.registrationForm.get('username').value;

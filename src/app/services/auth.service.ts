@@ -28,26 +28,18 @@ export class AuthService {
 
   // Check existence of token
   static isAuthenticated(): boolean {
-    const user = JSON.parse(localStorage.getItem('user'));
-    return user !== null;
+    return JSON.parse(localStorage.getItem('user'));
   }
 
   async login(email: string, password: string) {
     const result = await this.afAuth.auth.signInWithEmailAndPassword(email, password).then(() => {
-      this.http.get(`/users/${email}`).subscribe(res => {
-        localStorage.setItem('pgUser', JSON.stringify(res));
-      });
+      this.userService.setUserToStorage(email);
     });
-    this.router.navigate(['dashboard']);
   }
 
   async register(email: string, password: string, name: string) {
-    const result = await this.afAuth.auth.createUserWithEmailAndPassword(email, password).then(res => {
-      const body = {
-        username: email,
-        name,
-      };
-      this.http.post('/users', body).subscribe();
+    const result = await this.afAuth.auth.createUserWithEmailAndPassword(email, password).then(() => {
+      this.userService.addUser(email, name);
     });
     this.sendEmailVerification();
   }
@@ -60,6 +52,7 @@ export class AuthService {
   async logout() {
     await this.afAuth.auth.signOut();
     localStorage.removeItem('user');
+    localStorage.removeItem('pgUser');
     this.router.navigate(['login']);
   }
 
