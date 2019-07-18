@@ -13,14 +13,11 @@ import {Team} from '../../models/team.model';
 export class ProjectComponent implements OnInit {
 
 
-
   flag = true;
   project: Project;
   teams: Team[];
-  maintainers = [
-  ];
-  developers = [
-  ];
+  maintainers = [];
+  developers = [];
 
   constructor(private projectService: ProjectService,
               private teamService: TeamService,
@@ -39,12 +36,13 @@ export class ProjectComponent implements OnInit {
     });
 
     this.teamService.getTeamOfProject(this.router.snapshot.params.id).subscribe((res: any) => {
-      this.developers = res.data.filter((current) => {
-        return current.role === 'developer';
-      });
-
-      this.maintainers = res.data.filter((current) => {
-        return current.role === 'maintainer';
+      res.data.map((filtered) => {
+        console.log(filtered);
+        if (filtered.role === 'maintainer') {
+          this.maintainers.push(filtered);
+        } else {
+          this.developers.push(filtered);
+        }
       });
     });
   }
