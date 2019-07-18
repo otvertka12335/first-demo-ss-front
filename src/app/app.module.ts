@@ -17,6 +17,7 @@ import {SnackbarModule} from 'ngx-snackbar';
 import {HttpInterceptorService} from './services/http-interceptor.service';
 import {CreateProjectComponent} from './modals/create-project/create-project.component';
 import {OrderModule} from 'ngx-order-pipe';
+import {MatIconModule, MatListModule} from '@angular/material';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyA_sf-uY_LgmpuCR3BX4ptNgSIyZcR9WRc',
@@ -51,6 +52,8 @@ const firebaseConfig = {
     BrowserAnimationsModule,
     SnackbarModule.forRoot(),
     OrderModule,
+    MatListModule,
+    MatIconModule,
   ],
   providers: [
     {

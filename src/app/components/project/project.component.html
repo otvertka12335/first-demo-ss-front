@@ -10,16 +10,27 @@
     </div>
     <div class="col-md-4">
       <h3 class="my-3">Project Team</h3>
-      <ul class="list-group">
-        <li class="list-group-item" (click)="myFunc()">New <span class="badge">12</span></li>
-        <ul [hidden]="flag">
-          <li>ddddd</li>
-          <li>ddddd</li>
-          <li>ddddd</li>
-        </ul>
-        <li class="list-group-item">Deleted <span class="badge">5</span></li>
-        <li class="list-group-item">Warnings <span class="badge">3</span></li>
-      </ul>
+      <mat-list>
+        <h3 mat-subheader>Owner</h3>
+        <mat-list-item>
+          <mat-icon mat-list-icon>person</mat-icon>
+          <h4 mat-line>{{project.User.username}}</h4>
+        </mat-list-item>
+
+        <mat-divider></mat-divider>
+        <h3 mat-subheader>Maintainer</h3>
+        <mat-list-item *ngFor="let maintainer of maintainers">
+          <mat-icon mat-list-icon>bug_report</mat-icon>
+          <h4 mat-line>{{maintainer.user_id.username}}</h4>
+        </mat-list-item>
+
+        <mat-divider></mat-divider>
+        <h3 mat-subheader>Developer</h3>
+        <mat-list-item *ngFor="let developer of developers">
+          <mat-icon mat-list-icon>rowing</mat-icon>
+          <h4 mat-line>{{developer.user_id.username}}</h4>
+        </mat-list-item>
+      </mat-list>
     </div>
   </div>
   <!-- /.row -->

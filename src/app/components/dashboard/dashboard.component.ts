@@ -6,6 +6,7 @@ import {ProjectService} from '../../services/project.service';
 import {UserService} from '../../services/user.service';
 import {User} from '../../models/user.model';
 import {CreateProjectComponent} from '../../modals/create-project/create-project.component';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -19,7 +20,8 @@ export class DashboardComponent implements OnInit {
   constructor(private projectService: ProjectService,
               private authService: AuthService,
               private userService: UserService,
-              private modalService: NgbModal) {
+              private modalService: NgbModal,
+              private router: Router) {
   }
 
   ngOnInit() {
@@ -34,7 +36,10 @@ export class DashboardComponent implements OnInit {
     await this.authService.logout();
   }
 
-  openProject(project): void {
+  // Open new page with project details
+  showInfo(project): void {
+    this.projectService.changeProjectData(project);
+    this.router.navigateByUrl(`/project/${project.id}`);
   }
 
   addProject() {
