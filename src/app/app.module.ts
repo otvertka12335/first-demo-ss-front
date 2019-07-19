@@ -17,7 +17,18 @@ import {SnackbarModule} from 'ngx-snackbar';
 import {HttpInterceptorService} from './services/http-interceptor.service';
 import {CreateProjectComponent} from './modals/create-project/create-project.component';
 import {OrderModule} from 'ngx-order-pipe';
-import {MatIconModule, MatListModule} from '@angular/material';
+import {
+  MatButtonModule,
+  MatIconModule,
+  MatListModule,
+  MatMenuModule,
+  MatPaginatorModule,
+  MatSidenavModule,
+  MatSortModule,
+  MatTableModule,
+  MatToolbarModule
+} from '@angular/material';
+import {FlexLayoutModule} from '@angular/flex-layout';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyA_sf-uY_LgmpuCR3BX4ptNgSIyZcR9WRc',
@@ -45,15 +56,23 @@ const firebaseConfig = {
     ReactiveFormsModule,
     HttpClientModule,
     NgbModule,
+    OrderModule,
+    FlexLayoutModule,
     //  Firebase
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFireAuthModule,
     // MATERIAL
     BrowserAnimationsModule,
     SnackbarModule.forRoot(),
-    OrderModule,
     MatListModule,
     MatIconModule,
+    MatTableModule,
+    MatButtonModule,
+    MatToolbarModule,
+    MatSidenavModule,
+    MatMenuModule,
+    MatSortModule,
+    MatPaginatorModule
   ],
   providers: [
     {

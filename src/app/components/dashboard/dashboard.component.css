@@ -1,49 +1,35 @@
-.float {
-  position: fixed;
-  width: 60px;
-  height: 60px;
-  bottom: 40px;
-  right: 40px;
-  text-align: center;
-  border-radius: 50px;
-  box-shadow: 2px 2px 3px #999;
-  transition: background-color .1s linear;
+.row {
+  padding-top: 15px;
 }
 
-.float-logout {
-  right: 40px;
-  background-color: #0C9;
+table {
+  width: 100%;
 }
 
-.float-logout:hover {
-  background-color: #82cc50;
+th.mat-sort-header-sorted {
+  color: black;
 }
 
-.float-add {
-  right: 120px;
-  background-color: #011980;
-}
-
-.float-add:hover {
-  background-color: #2c7aff;
-}
-
-.float-text {
-  color: #ffffff;
-  font-size: 1.5em;
-  margin-top: 19px;
-}
-
-.info {
-  transition: background-color .1s linear;
-}
-
-.info:hover {
+.mat-row:hover {
+  cursor: pointer;
   background-color: #ccc;
 }
 
-@media screen and (max-width: 600px) {
-  .info {
-    transition: none;
-  }
+table button:focus {
+  outline: none;
+}
+
+table button:hover {
+  background-color: #fff;
+}
+
+mat-paginator {
+  width: 100%;
+}
+
+.fixed-block {
+  padding-top: .3rem;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
 }

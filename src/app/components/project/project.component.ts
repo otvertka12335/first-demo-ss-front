@@ -1,9 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {ProjectService} from '../../services/project.service';
 import {TeamService} from '../../services/team.service';
-import {ActivatedRoute, Router} from '@angular/router';
+import {ActivatedRoute} from '@angular/router';
 import {Project} from '../../models/project.model';
-import {Team} from '../../models/team.model';
 
 @Component({
   selector: 'app-project',
@@ -12,10 +11,7 @@ import {Team} from '../../models/team.model';
 })
 export class ProjectComponent implements OnInit {
 
-
-  flag = true;
   project: Project;
-  teams: Team[];
   maintainers = [];
   developers = [];
 
@@ -37,7 +33,6 @@ export class ProjectComponent implements OnInit {
 
     this.teamService.getTeamOfProject(this.router.snapshot.params.id).subscribe((res: any) => {
       res.data.map((filtered) => {
-        console.log(filtered);
         if (filtered.role === 'maintainer') {
           this.maintainers.push(filtered);
         } else {
@@ -45,9 +40,5 @@ export class ProjectComponent implements OnInit {
         }
       });
     });
-  }
-
-  myFunc() {
-    this.flag = !this.flag;
   }
 }

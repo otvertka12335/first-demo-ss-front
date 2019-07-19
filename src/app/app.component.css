@@ -1,8 +1,22 @@
-.snackbar {
-  position: absolute;
-  width: 100%;
-  max-width: 300px;
-  right: 30px;
-  bottom: 30px;
-  z-index: 1;
+.example-icon {
+  padding: 0 14px;
+}
+.example-spacer {
+  flex: 1 1 auto;
+}
+a {
+  color: #fff;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+a:active {
+  color: #fff;
+}
+
+a:visited {
+  color: #fff;
 }

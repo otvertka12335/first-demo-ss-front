@@ -3,12 +3,17 @@ import {UserService} from './user.service';
 import {Router} from '@angular/router';
 import {AngularFireAuth} from '@angular/fire/auth';
 import {HttpClient} from '@angular/common/http';
-import {User} from '../models/user.model';
+import {BehaviorSubject} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+
+  private loggedIn = new BehaviorSubject<boolean>(false); // {1}
+  get isLoggedIn() {
+    return this.loggedIn.asObservable(); // {2}
+  }
 
   constructor(private userService: UserService,
               private router: Router,
@@ -34,6 +39,7 @@ export class AuthService {
   async login(email: string, password: string) {
     const result = await this.afAuth.auth.signInWithEmailAndPassword(email, password).then(() => {
       this.userService.setUserToStorage(email);
+      this.loggedIn.next(true);
     });
   }
 
@@ -53,7 +59,7 @@ export class AuthService {
     await this.afAuth.auth.signOut();
     localStorage.removeItem('user');
     localStorage.removeItem('pgUser');
-    this.router.navigate(['login']);
+    this.loggedIn.next(false);
+    this.router.navigate(['/login']);
   }
-
 }

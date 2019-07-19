@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {AuthService} from '../../services/auth.service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {Project} from '../../models/project.model';
@@ -7,6 +7,7 @@ import {UserService} from '../../services/user.service';
 import {User} from '../../models/user.model';
 import {CreateProjectComponent} from '../../modals/create-project/create-project.component';
 import {Router} from '@angular/router';
+import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 
 @Component({
   selector: 'app-dashboard',
@@ -16,6 +17,12 @@ import {Router} from '@angular/router';
 export class DashboardComponent implements OnInit {
   projects: Project[];
   user: User;
+  displayedColumns: string[] = ['id', 'name', 'description', 'creator', 'actions'];
+  dataSource;
+
+  @ViewChild(MatSort, {static: true}) sort: MatSort;
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+
 
   constructor(private projectService: ProjectService,
               private authService: AuthService,
@@ -29,11 +36,8 @@ export class DashboardComponent implements OnInit {
     this.projectService.getProjectsByUser(user.id)
       .subscribe((projects: any) => {
         this.projects = projects.data;
+        this.setData();
       });
-  }
-
-  async logout(): Promise<void> {
-    await this.authService.logout();
   }
 
   // Open new page with project details
@@ -49,6 +53,7 @@ export class DashboardComponent implements OnInit {
       this.projectService.create(newProject)
         .subscribe((res: any) => {
           this.projects.unshift(res.data);
+          this.setData();
         });
     }).catch(() => {
     });
@@ -57,5 +62,11 @@ export class DashboardComponent implements OnInit {
   removeProject(projectId: number) {
     console.log(projectId);
     //  request to delete with id
+  }
+
+  setData() {
+    this.dataSource = new MatTableDataSource(this.projects);
+    this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
   }
 }

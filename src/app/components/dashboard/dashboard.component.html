@@ -1,37 +1,50 @@
 <div class="row">
-  <table class="table">
-    <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">Name</th>
-      <th scope="col">Description</th>
-      <th scope="col">Creator</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr *ngFor="let project of projects" class="info" (click)="showInfo(project)">
-      <th scope="row">{{project.id}}</th>
-      <td>{{project.name}}</td>
-      <td>{{project.description}}</td>
-      <td>{{project.userId.username}}</td>
-      <td (click)="$event.stopPropagation()">
-        <button class="btn btn-danger" (click)="removeProject(project.id)"><i class="fa fa-remove"></i></button>
+  <table mat-table [dataSource]="dataSource"  class="mat-elevation-z5"
+         matSort>
+
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> No.</th>
+      <td mat-cell *matCellDef="let element"> {{element.id}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Name</th>
+      <td mat-cell *matCellDef="let element"> {{element.name}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="description">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Description</th>
+      <td mat-cell *matCellDef="let element"> {{element.description}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="creator">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Author</th>
+      <td mat-cell *matCellDef="let element"> {{element.description}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let element" (click)="$event.stopPropagation()">
+        <button mat-icon-button aria-label="" (click)="removeProject(element.id)">
+          <mat-icon>delete</mat-icon>
+        </button>
       </td>
-    </tr>
-    <tr>
-    </tbody>
+    </ng-container>
+
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="showInfo(row)"></tr>
   </table>
-  <div class="col-md-12" *ngIf="projects && projects.length === 0">
-    <div class="alert alert-warning text-center">
-      Table is empty
-    </div>
+  <mat-paginator #paginator class="mat-elevation-z3"
+                 [pageIndex]="0"
+                 [pageSize]="10"
+                 [pageSizeOptions]="[5, 10, 25, 100]">
+  </mat-paginator>
+  <div class="fixed-block">
+    <button mat-fab aria-label="" (click)="addProject()">
+      <mat-icon>add</mat-icon>
+    </button>
   </div>
-
-  <a (click)="logout()" class="float float-logout">
-    <i class="fa fa-sign-out float-text ml-1"></i>
-  </a>
-
-  <a (click)="addProject()" class="float float-add">
-    <i class="fa fa-plus float-text"></i>
-  </a>
 </div>
+
+
