@@ -33,6 +33,15 @@ export class ProjectService {
     return this.http.post('/projects', project);
   }
 
+  editProject(project: Project): Observable<any> {
+    const id = project.id;
+    return this.http.put(`/projects/${id}`, project);
+  }
+
+  deleteProject(id: number): Observable<any> {
+    return this.http.delete(`/projects/${id}`);
+  }
+
   // For change data bindig data
   changeProjectData(project: Project) {
     this.projectData.next(project);

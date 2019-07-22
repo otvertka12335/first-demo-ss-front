@@ -11,6 +11,7 @@ import {AuthService} from '../../services/auth.service';
 })
 export class RegistrationComponent implements OnInit {
   registrationForm: FormGroup;
+  private showSpinner = false;
 
   constructor(private formBuilder: FormBuilder,
               private userService: UserService,
@@ -29,9 +30,17 @@ export class RegistrationComponent implements OnInit {
 
   // Creating new user and saving him in db
   createUser(): void {
+    this.showSpinner = true;
     const email = this.registrationForm.get('username').value;
     const password = this.registrationForm.get('password').value;
     const name = this.registrationForm.get('name').value;
-    this.authService.register(email, password, name);
+    this.authService.register(email, password, name).then(
+      res => {
+        console.log(res);
+      },
+      err => {
+        this.showSpinner = false;
+      }
+    );
   }
 }

@@ -33,6 +33,7 @@ export class CreateProjectComponent implements OnInit {
   onSubmit(): void {
     if (this.myForm.valid) {
       this.activeModal.close({
+        id: this.project.id,
         name: this.myForm.getRawValue().name,
         description: this.myForm.getRawValue().description,
         userId: this.myForm.getRawValue().userId,

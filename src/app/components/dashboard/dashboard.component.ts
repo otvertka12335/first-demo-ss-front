@@ -8,6 +8,8 @@ import {User} from '../../models/user.model';
 import {CreateProjectComponent} from '../../modals/create-project/create-project.component';
 import {Router} from '@angular/router';
 import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
+import {Subscription} from 'rxjs';
+import {MediaChange, MediaObserver} from '@angular/flex-layout';
 
 @Component({
   selector: 'app-dashboard',
@@ -19,6 +21,8 @@ export class DashboardComponent implements OnInit {
   user: User;
   displayedColumns: string[] = ['id', 'name', 'description', 'creator', 'actions'];
   dataSource;
+  currentScreenWidth = '';
+  flexMediaWatcher: Subscription;
 
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
@@ -28,7 +32,14 @@ export class DashboardComponent implements OnInit {
               private authService: AuthService,
               private userService: UserService,
               private modalService: NgbModal,
-              private router: Router) {
+              private router: Router,
+              private mediaObserver: MediaObserver) {
+    this.flexMediaWatcher = mediaObserver.media$.subscribe((change: MediaChange) => {
+      if (change.mqAlias !== this.currentScreenWidth) {
+        this.currentScreenWidth = change.mqAlias;
+        this.setupTable();
+      }
+    }); // Be sure to unsubscribe from this in onDestroy()!
   }
 
   ngOnInit() {
@@ -38,6 +49,22 @@ export class DashboardComponent implements OnInit {
         this.projects = projects.data;
         this.setData();
       });
+  }
+
+  setData() {
+    this.dataSource = new MatTableDataSource(this.projects);
+    this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
+  }
+
+  setupTable() {
+    this.displayedColumns = ['id', 'name', 'description', 'creator', 'actions'];
+    if (this.currentScreenWidth === 'xs') { // only display internalId on larger screens
+      this.displayedColumns.shift();
+      this.displayedColumns = this.displayedColumns.filter(res => {
+        return res !== 'description';
+      });
+    }
   }
 
   // Open new page with project details
@@ -52,21 +79,35 @@ export class DashboardComponent implements OnInit {
     modalRef.result.then((newProject: Project) => {
       this.projectService.create(newProject)
         .subscribe((res: any) => {
-          this.projects.unshift(res.data);
-          this.setData();
+          this.projectService.getProjectById(res.data.id).subscribe(newRes => {
+            this.projects.unshift(newRes.data);
+            this.setData();
+          });
         });
     }).catch(() => {
     });
   }
 
-  removeProject(projectId: number) {
-    console.log(projectId);
-    //  request to delete with id
+  editProject(project) {
+    const modalRef = this.modalService.open(CreateProjectComponent);
+    modalRef.componentInstance.project = project;
+    modalRef.result.then((editedProject: Project) => {
+      this.projectService.editProject(editedProject)
+        .subscribe(() => {
+          const userIndex = this.projects.findIndex(p => p.id === editedProject.id);
+          this.projectService.getProjectById(editedProject.id).subscribe(res => {
+            this.projects.splice(userIndex, 1, res.data);
+            this.setData();
+          });
+        });
+    }).catch(() => {
+    });
   }
 
-  setData() {
-    this.dataSource = new MatTableDataSource(this.projects);
-    this.dataSource.sort = this.sort;
-    this.dataSource.paginator = this.paginator;
+  removeProject(id: number) {
+    this.projectService.deleteProject(id).subscribe(res => {
+      this.projects = this.projects.filter(project => project.id !== id);
+      this.setData();
+    });
   }
 }

@@ -45,7 +45,7 @@ export class ProjectComponent implements OnInit {
       if (res) {
         this.project = res;
       } else {
-        this.projectService.getProjectById(this.router.snapshot.params.id).subscribe(project => {
+        this.projectService.getProjectById(this.router.snapshot.params.id).subscribe((project: any) => {
           this.project = project.data;
         });
       }

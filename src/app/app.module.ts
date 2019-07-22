@@ -18,11 +18,12 @@ import {HttpInterceptorService} from './services/http-interceptor.service';
 import {CreateProjectComponent} from './modals/create-project/create-project.component';
 import {OrderModule} from 'ngx-order-pipe';
 import {
-  MatButtonModule,
-  MatIconModule,
+  MatButtonModule, MatCardModule,
+  MatFormFieldModule,
+  MatIconModule, MatInputModule,
   MatListModule,
   MatMenuModule,
-  MatPaginatorModule,
+  MatPaginatorModule, MatProgressSpinnerModule,
   MatSidenavModule,
   MatSortModule,
   MatTableModule,
@@ -74,7 +75,11 @@ const firebaseConfig = {
     MatSidenavModule,
     MatMenuModule,
     MatSortModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatCardModule,
+    MatProgressSpinnerModule,
   ],
   providers: [
     {

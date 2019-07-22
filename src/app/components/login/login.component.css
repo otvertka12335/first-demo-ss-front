@@ -30,50 +30,28 @@ body {
   font-weight: bold;
   padding: 1rem;
   transition: all 0.2s;
+  display: flex;
 }
 
 .form-label-group {
-  position: relative;
-  margin-bottom: 1rem;
+  display: flex;
+  justify-content: center;
+}
+.form-button {
+  display: flex;
+  justify-content: space-around;
 }
 
-.form-label-group input {
-  height: auto;
-  border-radius: 2rem;
+.card-content-center {
+  display: flex;
+  justify-content: center;
 }
 
-.form-label-group>input,
-.form-label-group>label {
-  padding: .75rem 1.5rem;
+.card-content-actions {
+  display: flex;
+  justify-content: center;
 }
 
-.form-label-group>label {
-  position: absolute;
-  top: 0;
-  left: 0;
-  display: block;
+.example-full-width {
   width: 100%;
-  margin-bottom: 0;
-  /* Override default `<label>` margin */
-  line-height: 1.5;
-  color: #495057;
-  border: 1px solid transparent;
-  border-radius: .25rem;
-  transition: all .1s ease-in-out;
-}
-
-.form-label-group input::placeholder {
-  color: transparent;
-}
-
-.form-label-group input:not(:placeholder-shown) {
-  padding-top: 1rem;
-  padding-bottom: .25rem;
-}
-
-.form-label-group input:not(:placeholder-shown)~label {
-  padding-top: .25rem;
-  padding-bottom: .5rem;
-  font-size: 12px;
-  color: #777;
 }

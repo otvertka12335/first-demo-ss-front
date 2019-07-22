@@ -11,6 +11,7 @@ export class LoginComponent implements OnInit {
   username: string;
   password: string;
   badCredentials: boolean;
+  private showSpinner = false;
 
   constructor(private authService: AuthService,
               private toster: SnackbarService) {
@@ -20,7 +21,15 @@ export class LoginComponent implements OnInit {
   }
 
   login(): void {
-    this.authService.login(this.username, this.password);
+    this.showSpinner = true;
+    this.authService.login(this.username, this.password).then(
+      res => {
+        console.log(res);
+      },
+      err => {
+        this.showSpinner = false;
+      }
+    );
     //   // .then((value: boolean) => {
     //   //   this.badCredentials = !value;
     //   // });
