@@ -1,9 +1,16 @@
 <!-- Page Content -->
 <div class="container">
   <!-- Item Heading -->
-  <h1 class="my-4"> {{project.name}}
-    <small class="text-muted"> {{project.createdAt | date}}</small>
+  <h1 class="col-md-8" (resized)="onResized($event)"> {{project.name}}
+    <small class="text-muted" *ngIf="mobile; else elseBlock"> {{project.createdAt | date}} </small>
+    <ng-template #elseBlock> <small class="text-muted" > {{project.createdAt | date:'shortDate'}} </small></ng-template>
+    <small class="float-right">
+      <button mat-button>
+        <mat-icon>edit</mat-icon>
+      </button>
+    </small>
   </h1>
+
   <!-- Item Row -->
   <div class="row">
     <div class="col-md-8">

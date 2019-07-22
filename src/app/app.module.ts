@@ -29,6 +29,7 @@ import {
   MatToolbarModule
 } from '@angular/material';
 import {FlexLayoutModule} from '@angular/flex-layout';
+import {AngularResizedEventModule} from 'angular-resize-event';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyA_sf-uY_LgmpuCR3BX4ptNgSIyZcR9WRc',
@@ -58,6 +59,7 @@ const firebaseConfig = {
     NgbModule,
     OrderModule,
     FlexLayoutModule,
+    AngularResizedEventModule,
     //  Firebase
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFireAuthModule,
