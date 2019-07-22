@@ -1,5 +1,5 @@
 <!-- Page Content -->
-<div class="container">
+<div class="container" *ngIf="project ">
   <!-- Item Heading -->
   <h1 class="col-md-8" (resized)="onResized($event)"> {{project.name}}
     <small class="text-muted" *ngIf="mobile; else elseBlock"> {{project.createdAt | date}}</small>
@@ -17,6 +17,7 @@
     </div>
     <div class="col-md-4">
       <h3 class="my-3">Project Team</h3>
+      <small><button mat-button><mat-icon>edit</mat-icon></button></small>
       <mat-list>
         <h3 mat-subheader>Owner</h3>
         <mat-list-item>
@@ -25,18 +26,34 @@
         </mat-list-item>
 
         <mat-divider></mat-divider>
-        <h3 mat-subheader>Maintainer</h3>
-        <mat-list-item *ngFor="let maintainer of maintainers">
-          <mat-icon mat-list-icon>bug_report</mat-icon>
-          <h4 mat-line>{{maintainer.user_id.username}}</h4>
-        </mat-list-item>
+        <h3 mat-subheader>Maintainers</h3>
+        <div *ngIf="maintainers.length !== 0; else elseBlock1">
+          <mat-list-item *ngFor="let maintainer of maintainers">
+            <mat-icon mat-list-icon>bug_report</mat-icon>
+            <h4 mat-line>{{maintainer.user_id.username}}</h4>
+          </mat-list-item>
+        </div>
+        <ng-template #elseBlock1>
+          <mat-list-item>
+            <mat-icon mat-list-icon>sentiment_dissatisfied</mat-icon>
+            <h4 mat-line>Maintainers is empty</h4>
+          </mat-list-item>
+        </ng-template>
 
         <mat-divider></mat-divider>
-        <h3 mat-subheader>Developer</h3>
-        <mat-list-item *ngFor="let developer of developers">
-          <mat-icon mat-list-icon>rowing</mat-icon>
-          <h4 mat-line>{{developer.user_id.username}}</h4>
-        </mat-list-item>
+        <h3 mat-subheader>Developers</h3>
+        <div *ngIf="maintainers.length !== 0; else elseBlock2">
+          <mat-list-item *ngFor="let developer of developers">
+            <mat-icon mat-list-icon>rowing</mat-icon>
+            <h4 mat-line>{{developer.user_id.username}}</h4>
+          </mat-list-item>
+        </div>
+        <ng-template #elseBlock2>
+          <mat-list-item>
+            <mat-icon mat-list-icon>sentiment_dissatisfied</mat-icon>
+            <h4 mat-line>Developers is empty</h4>
+          </mat-list-item>
+        </ng-template>
       </mat-list>
     </div>
   </div>
