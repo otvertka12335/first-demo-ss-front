@@ -7,7 +7,6 @@
       <small class="text-muted"> {{project.createdAt | date:'shortDate'}}</small>
     </ng-template>
   </h1>
-
   <!-- Item Row -->
   <div class="row">
     <div class="col-md-8">
@@ -17,7 +16,7 @@
     </div>
     <div class="col-md-4">
       <h3 class="my-3">Project Team</h3>
-      <small><button mat-button><mat-icon>edit</mat-icon></button></small>
+      <small><button mat-button (click)="addTeamMates()"><mat-icon>edit</mat-icon></button></small>
       <mat-list>
         <h3 mat-subheader>Owner</h3>
         <mat-list-item>

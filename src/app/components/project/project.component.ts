@@ -4,6 +4,8 @@ import {TeamService} from '../../services/team.service';
 import {ActivatedRoute} from '@angular/router';
 import {Project} from '../../models/project.model';
 import {ResizedEvent} from 'angular-resize-event';
+import {MatDialog} from '@angular/material';
+import {TeamComponent} from '../../modals/team/team.component';
 
 @Component({
   selector: 'app-project',
@@ -19,7 +21,8 @@ export class ProjectComponent implements OnInit {
 
   constructor(private projectService: ProjectService,
               private teamService: TeamService,
-              private router: ActivatedRoute) {
+              private router: ActivatedRoute,
+              private dialog: MatDialog) {
   }
 
   ngOnInit() {
@@ -60,5 +63,15 @@ export class ProjectComponent implements OnInit {
 
   onResized(event: ResizedEvent) {
     event.newWidth <= 450 ? this.mobile = false : this.mobile = true;
+  }
+
+  addTeamMates() {
+    const dialogRef = this.dialog.open(TeamComponent, {
+      width: '350px',
+    });
+
+    dialogRef.afterClosed().subscribe(res => {
+      console.log(res);
+    });
   }
 }

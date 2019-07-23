@@ -18,19 +18,27 @@ import {HttpInterceptorService} from './services/http-interceptor.service';
 import {CreateProjectComponent} from './modals/create-project/create-project.component';
 import {OrderModule} from 'ngx-order-pipe';
 import {
-  MatButtonModule, MatCardModule,
+  MatButtonModule,
+  MatCardModule,
+  MatDialogModule,
   MatFormFieldModule,
-  MatIconModule, MatInputModule,
+  MatIconModule,
+  MatInputModule,
   MatListModule,
   MatMenuModule,
-  MatPaginatorModule, MatProgressSpinnerModule,
+  MatPaginatorModule,
+  MatProgressSpinnerModule, MatSelectModule,
   MatSidenavModule,
   MatSortModule,
   MatTableModule,
+  MatTabsModule,
   MatToolbarModule
 } from '@angular/material';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {AngularResizedEventModule} from 'angular-resize-event';
+import {TestComponent} from './components/test/test.component';
+import {TeamComponent} from './modals/team/team.component';
+import {NgxMatSelectSearchModule} from 'ngx-mat-select-search';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyA_sf-uY_LgmpuCR3BX4ptNgSIyZcR9WRc',
@@ -50,6 +58,8 @@ const firebaseConfig = {
     RegistrationComponent,
     ProjectComponent,
     CreateProjectComponent,
+    TestComponent,
+    TeamComponent,
   ],
   imports: [
     BrowserModule,
@@ -80,6 +90,10 @@ const firebaseConfig = {
     MatInputModule,
     MatCardModule,
     MatProgressSpinnerModule,
+    MatTabsModule,
+    MatDialogModule,
+    MatSelectModule,
+    NgxMatSelectSearchModule
   ],
   providers: [
     {
@@ -89,7 +103,7 @@ const firebaseConfig = {
     }
   ],
   bootstrap: [AppComponent],
-  entryComponents: [CreateProjectComponent]
+  entryComponents: [CreateProjectComponent, TeamComponent]
 })
 export class AppModule {
 }
