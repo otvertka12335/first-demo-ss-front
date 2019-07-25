@@ -1,17 +1,23 @@
-<h3>Multiple selection</h3>
-<p>
-  <mat-form-field>
-    <mat-select [formControl]="teamControl" placeholder="Mates" [multiple]="true" #multiSelect>
-      <ngx-mat-select-search [formControl]="teamControlFilter"></ngx-mat-select-search>
-      <mat-option *ngFor="let mate of mates" [value]="mate.id">
-        {{mate.name}}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
-</p>
-<p>
-  Selected Banks:
-</p>
-<ul *ngFor="let bank of bankMultiCtrl?.value">
-  <li>{{bank.name}}</li>
-</ul>
+<mat-horizontal-stepper #stepper>
+  <mat-step [stepControl]="firstFormGroup">
+    <form>
+      <ng-template matStepLabel>Maintainers</ng-template>
+      <app-maintainers (maintainersEvent)="reciveMaintainers($event)"></app-maintainers>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="secondFormGroup">
+    <form>
+      <ng-template matStepLabel>Developers</ng-template>
+      <app-developers (developersEvent)="receiveDevelopers($event)"></app-developers>
+    </form>
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>Done</ng-template>
+    You are now done.
+    <div>
+      <button mat-button matStepperPrevious>Back</button>
+      <button mat-button matStepperPrevious (click)="modalClose()">Cancel</button>
+      <button mat-button mat-dialog-close (click)="modalSave()">Save</button>
+    </div>
+  </mat-step>
+</mat-horizontal-stepper>

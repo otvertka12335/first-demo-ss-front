@@ -29,7 +29,7 @@ import {
   MatPaginatorModule,
   MatProgressSpinnerModule, MatSelectModule,
   MatSidenavModule,
-  MatSortModule,
+  MatSortModule, MatStepperModule,
   MatTableModule,
   MatTabsModule,
   MatToolbarModule
@@ -39,6 +39,8 @@ import {AngularResizedEventModule} from 'angular-resize-event';
 import {TestComponent} from './components/test/test.component';
 import {TeamComponent} from './modals/team/team.component';
 import {NgxMatSelectSearchModule} from 'ngx-mat-select-search';
+import { DevelopersComponent } from './components/developers/developers.component';
+import { MaintainersComponent } from './components/maintainers/maintainers.component';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyA_sf-uY_LgmpuCR3BX4ptNgSIyZcR9WRc',
@@ -60,6 +62,8 @@ const firebaseConfig = {
     CreateProjectComponent,
     TestComponent,
     TeamComponent,
+    DevelopersComponent,
+    MaintainersComponent,
   ],
   imports: [
     BrowserModule,
@@ -93,7 +97,8 @@ const firebaseConfig = {
     MatTabsModule,
     MatDialogModule,
     MatSelectModule,
-    NgxMatSelectSearchModule
+    NgxMatSelectSearchModule,
+    MatStepperModule,
   ],
   providers: [
     {

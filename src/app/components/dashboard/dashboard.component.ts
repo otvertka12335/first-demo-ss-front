@@ -47,6 +47,7 @@ export class DashboardComponent implements OnInit {
     this.projectService.getProjectsByUser(user.id)
       .subscribe((projects: any) => {
         this.projects = projects.data;
+        console.log(projects);
         this.setData();
       });
   }

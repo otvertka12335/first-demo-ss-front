@@ -67,7 +67,8 @@ export class ProjectComponent implements OnInit {
 
   addTeamMates() {
     const dialogRef = this.dialog.open(TeamComponent, {
-      width: '350px',
+      width: '600px',
+      data: {id: this.router.snapshot.params.id}
     });
 
     dialogRef.afterClosed().subscribe(res => {

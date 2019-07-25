@@ -14,3 +14,6 @@
 <ul *ngFor="let bank of bankMultiCtrl?.value">
   <li>{{bank.name}}</li>
 </ul>
+<div>
+  <button mat-button matStepperNext (click)="nextClick()">Next</button>
+</div>

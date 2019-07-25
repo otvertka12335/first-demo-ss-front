@@ -1,19 +1,19 @@
-import {AfterViewInit, Component, Inject, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {ProjectService} from '../../services/project.service';
+import {AfterViewInit, Component, EventEmitter, Inject, OnDestroy, OnInit, Output, ViewChild} from '@angular/core';
 import {FormControl} from '@angular/forms';
 import {ReplaySubject, Subject} from 'rxjs';
-import {MAT_DIALOG_DATA, MatDialogRef, MatSelect} from '@angular/material';
+import {MAT_DIALOG_DATA, MatSelect} from '@angular/material';
 import {UserService} from '../../services/user.service';
 import {TeamService} from '../../services/team.service';
 import {take, takeUntil} from 'rxjs/operators';
 
 @Component({
-  selector: 'app-test',
-  templateUrl: './test.component.html',
-  styleUrls: ['./test.component.css']
+  selector: 'app-developers',
+  templateUrl: './developers.component.html',
+  styleUrls: ['./developers.component.css']
 })
-export class TestComponent implements OnInit, AfterViewInit, OnDestroy {
+export class DevelopersComponent implements OnInit, AfterViewInit, OnDestroy {
   protected users;
+  @Output() developersEvent = new EventEmitter<any>();
 
   /** control for the selected bank for multi-selection */
   public bankMultiCtrl: FormControl = new FormControl();
@@ -33,7 +33,6 @@ export class TestComponent implements OnInit, AfterViewInit, OnDestroy {
 
   constructor(private userService: UserService,
               private teamService: TeamService,
-              // private dialogRef: MatDialogRef<Test>,
               @Inject(MAT_DIALOG_DATA) public data: any) {
   }
 
@@ -52,9 +51,6 @@ export class TestComponent implements OnInit, AfterViewInit, OnDestroy {
         this.bankMultiCtrl.setValue(selectedDevelopers);
         this.filteredBanksMulti.next(this.users.slice());
       });
-
-      // load the initial bank list
-
     });
 
     // listen for search field value changes
@@ -108,4 +104,7 @@ export class TestComponent implements OnInit, AfterViewInit, OnDestroy {
     );
   }
 
+  nextClick() {
+    this.developersEvent.emit(this.bankMultiCtrl.value);
+  }
 }
