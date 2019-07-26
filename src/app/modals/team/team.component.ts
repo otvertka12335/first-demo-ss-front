@@ -21,16 +21,14 @@ export class TeamComponent implements OnInit {
 
   receiveDevelopers($event) {
     this.developers = $event;
-    console.log(this.developers);
   }
 
   reciveMaintainers($event) {
     this.maintainers = $event;
-    console.log(this.maintainers);
   }
 
   modalClose() {
-    this.dialogRef.close('close');
+    this.dialogRef.close({status: false});
   }
 
   modalSave() {
@@ -40,6 +38,6 @@ export class TeamComponent implements OnInit {
       return !mai.includes(val);
     });
 
-    this.dialogRef.close('success');
+    this.dialogRef.close({id: this.data.id, mai, dev, status: true});
   }
 }

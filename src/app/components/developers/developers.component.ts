@@ -47,7 +47,6 @@ export class DevelopersComponent implements OnInit, AfterViewInit, OnDestroy {
 
         selectedDevelopers = selectedDevelopers.map(m => Object.create({id: m.user}));
 
-        console.log(selectedDevelopers);
         this.bankMultiCtrl.setValue(selectedDevelopers);
         this.filteredBanksMulti.next(this.users.slice());
       });

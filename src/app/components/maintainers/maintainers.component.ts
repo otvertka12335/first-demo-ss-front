@@ -52,8 +52,6 @@ export class MaintainersComponent implements OnInit, AfterViewInit, OnDestroy {
         selectedMaintainers = selectedMaintainers.map(m => Object.create({id: m.user}));
         selectedDevelopers = selectedDevelopers.map(m => Object.create({id: m.user}));
 
-        console.log(selectedMaintainers);
-        console.log(selectedDevelopers);
         this.bankMultiCtrl.setValue(selectedMaintainers);
         this.filteredBanksMulti.next(this.users.slice());
       });

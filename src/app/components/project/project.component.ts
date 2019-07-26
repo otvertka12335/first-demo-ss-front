@@ -32,6 +32,8 @@ export class ProjectComponent implements OnInit {
   }
 
   getTeam() {
+    this.developers = [];
+    this.maintainers = [];
     this.teamService.getTeamOfProject(this.router.snapshot.params.id).subscribe((res: any) => {
       res.data.map((filtered) => {
         if (filtered.role === 'maintainer') {
@@ -72,7 +74,11 @@ export class ProjectComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(res => {
-      console.log(res);
+      if (res.status) {
+        this.teamService.addTeamToProject(res.id, res.mai, res.dev).subscribe((data: any) => {
+          this.getTeam();
+        });
+      }
     });
   }
 }

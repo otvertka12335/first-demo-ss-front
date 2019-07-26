@@ -14,4 +14,14 @@ export class TeamService {
     return this.http.get(`/teams/project/${projectId}`);
   }
 
+  addTeamToProject(id, maintainers, developers) {
+    const body = {
+      project: id,
+      maintainers,
+      developers
+    };
+
+    return this.http.post('/teams/addTeamMates', body);
+  }
+
 }

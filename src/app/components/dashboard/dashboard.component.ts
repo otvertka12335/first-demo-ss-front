@@ -19,13 +19,14 @@ import {MediaChange, MediaObserver} from '@angular/flex-layout';
 export class DashboardComponent implements OnInit {
   projects: Project[];
   user: User;
-  displayedColumns: string[] = ['id', 'name', 'description', 'creator', 'actions'];
+  displayedColumns: string[] = ['name', 'description', 'creator', 'actions'];
   dataSource;
   currentScreenWidth = '';
   flexMediaWatcher: Subscription;
 
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+  emptyFlag: boolean;
 
 
   constructor(private projectService: ProjectService,
@@ -56,12 +57,13 @@ export class DashboardComponent implements OnInit {
     this.dataSource = new MatTableDataSource(this.projects);
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
+    this.emptyFlag = !this.dataSource.data.length;
   }
 
   setupTable() {
-    this.displayedColumns = ['id', 'name', 'description', 'creator', 'actions'];
+    this.displayedColumns = ['name', 'description', 'creator', 'actions'];
     if (this.currentScreenWidth === 'xs') { // only display internalId on larger screens
-      this.displayedColumns.shift();
+      // this.displayedColumns.shift();
       this.displayedColumns = this.displayedColumns.filter(res => {
         return res !== 'description';
       });
