@@ -7,9 +7,11 @@ import {UserService} from '../../services/user.service';
 import {User} from '../../models/user.model';
 import {CreateProjectComponent} from '../../modals/create-project/create-project.component';
 import {Router} from '@angular/router';
-import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
+import {MatDialog, MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import {Subscription} from 'rxjs';
 import {MediaChange, MediaObserver} from '@angular/flex-layout';
+import {ToastService} from '../../services/toast.service';
+import {ConfirmComponent} from '../../modals/confirm/confirm.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -34,6 +36,8 @@ export class DashboardComponent implements OnInit {
               private userService: UserService,
               private modalService: NgbModal,
               private router: Router,
+              private toast: ToastService,
+              private dialog: MatDialog,
               private mediaObserver: MediaObserver) {
     this.flexMediaWatcher = mediaObserver.media$.subscribe((change: MediaChange) => {
       if (change.mqAlias !== this.currentScreenWidth) {
@@ -48,7 +52,6 @@ export class DashboardComponent implements OnInit {
     this.projectService.getProjectsByUser(user.id)
       .subscribe((projects: any) => {
         this.projects = projects.data;
-        console.log(projects);
         this.setData();
       });
   }
@@ -85,6 +88,7 @@ export class DashboardComponent implements OnInit {
           this.projectService.getProjectById(res.data.id).subscribe(newRes => {
             this.projects.unshift(newRes.data);
             this.setData();
+            // this.toast.showSuccess();
           });
         });
     }).catch(() => {
@@ -108,9 +112,19 @@ export class DashboardComponent implements OnInit {
   }
 
   removeProject(id: number) {
-    this.projectService.deleteProject(id).subscribe(res => {
-      this.projects = this.projects.filter(project => project.id !== id);
-      this.setData();
+    const dialogRef = this.dialog.open(ConfirmComponent, {
+      width: '350px',
+      data: 'Do you confirm the deletion of this data?'
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.projectService.deleteProject(id).subscribe(() => {
+          this.projects = this.projects.filter(project => project.id !== id);
+          this.setData();
+        });
+      }
     });
   }
+
+
 }

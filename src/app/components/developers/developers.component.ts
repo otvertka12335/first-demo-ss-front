@@ -25,7 +25,7 @@ export class DevelopersComponent implements OnInit, AfterViewInit, OnDestroy {
   /** list of users filtered by search keyword */
   public filteredBanksMulti: ReplaySubject<any[]> = new ReplaySubject<any[]>(1);
 
-  @ViewChild('multiSelect') multiSelect: MatSelect;
+  @ViewChild('multiSelect', {static: false}) multiSelect: MatSelect;
 
   /** Subject that emits when the component has been destroyed. */
   protected _onDestroy = new Subject<void>();

@@ -3,60 +3,61 @@
     <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
       <mat-card class="card card-signin my-5">
         <mat-card-header class="card-content-center">
-          <mat-card-title>Login</mat-card-title>
+          <mat-card-title>Registration</mat-card-title>
         </mat-card-header>
         <mat-card-content class="card-content-center">
-          <form class="form-signup" [formGroup]="registrationForm" (ngSubmit)="createUser()" [style.display]="!showSpinner ? 'block': 'none'">
-                  <mat-form-field class="form-label-group">
-                    <input matInput type="text" id="name" name="name"
-                           placeholder="FirstName" formControlName="name">
-                    <div *ngIf="registrationForm.get('name').invalid &&
+          <form class="form-signup" [formGroup]="registrationForm" (ngSubmit)="createUser()" *ngIf="!showSpinner">
+            <mat-form-field class="form-label-group">
+              <input matInput type="text" id="name" name="name"
+                     placeholder="FirstName" formControlName="name">
+              <div *ngIf="registrationForm.get('name').invalid &&
               (registrationForm.get('name').dirty || registrationForm.get('name').touched)">
-                      <small class="form-text text-danger"
-                             *ngIf="registrationForm.get('name').errors.required">
-                        Name is required.
-                      </small>
-                      <small class="form-text text-danger"
-                             *ngIf="registrationForm.get('name').errors.maxlength">
-                        Name must be lower to 20.
-                      </small>
-                    </div>
-                  </mat-form-field>
-                  <mat-form-field class="form-label-group">
-                    <input matInput type="text" id="username" name="username"
-                           placeholder="Username" formControlName="username">
-                    <div *ngIf="registrationForm.get('username').invalid &&
+                <small class="form-text text-danger"
+                       *ngIf="registrationForm.get('name').errors.required">
+                  Name is required.
+                </small>
+                <small class="form-text text-danger"
+                       *ngIf="registrationForm.get('name').errors.maxlength">
+                  Name must be lower to 20.
+                </small>
+              </div>
+            </mat-form-field>
+            <mat-form-field class="form-label-group">
+              <input matInput type="text" id="username" name="username"
+                     placeholder="Username" formControlName="username">
+              <div *ngIf="registrationForm.get('username').invalid &&
               (registrationForm.get('username').dirty || registrationForm.get('username').touched)">
-                      <small class="form-text text-danger"
-                             *ngIf="registrationForm.get('username').errors.required">
-                        Username is required.
-                      </small>
-                      <small class="form-text text-danger"
-                             *ngIf="registrationForm.get('username').errors.email">
-                        Username must be email address
-                      </small>
-                    </div>
-                  </mat-form-field>
-                  <mat-form-field class="form-label-group">
-                    <input matInput type="password" id="password" name="password"
-                           placeholder="Password" formControlName="password">
-                    <div *ngIf="registrationForm.get('password').invalid &&
+                <small class="form-text text-danger"
+                       *ngIf="registrationForm.get('username').errors.required">
+                  Username is required.
+                </small>
+                <small class="form-text text-danger"
+                       *ngIf="registrationForm.get('username').errors.email">
+                  Username must be email address
+                </small>
+              </div>
+            </mat-form-field>
+            <mat-form-field class="form-label-group">
+              <input matInput type="password" id="password" name="password"
+                     placeholder="Password" formControlName="password">
+              <div *ngIf="registrationForm.get('password').invalid &&
               (registrationForm.get('password').dirty || registrationForm.get('password').touched)">
-                      <small class="form-text text-danger"
-                             *ngIf="registrationForm.get('password').errors.required">
-                        Password is required.
-                      </small>
-                      <small class="form-text text-danger"
-                             *ngIf="registrationForm.get('password').errors.minlength">
-                        Password must be at least 6 characters long
-                      </small>
-                    </div>
-                  </mat-form-field>
+                <small class="form-text text-danger"
+                       *ngIf="registrationForm.get('password').errors.required">
+                  Password is required.
+                </small>
+                <small class="form-text text-danger"
+                       *ngIf="registrationForm.get('password').errors.minlength">
+                  Password must be at least 6 characters long
+                </small>
+              </div>
+            </mat-form-field>
           </form>
-          <mat-spinner [style.display]="showSpinner ? 'block' : 'none'"></mat-spinner>
+          <mat-spinner *ngIf="showSpinner"></mat-spinner>
         </mat-card-content>
         <mat-card-actions class="card-content-actions">
-          <button mat-raised-button type="submit" color="primary" (click)="createUser()" [disabled]="!registrationForm.valid">Create User
+          <button mat-raised-button type="submit" color="primary" (click)="createUser()"
+                  [disabled]="!registrationForm.valid">Create User
           </button>
           <button mat-raised-button routerLink="/login">I already have an account</button>
         </mat-card-actions>

@@ -56,10 +56,10 @@ export class AuthService {
   }
 
   async logout() {
-    await this.afAuth.auth.signOut();
-    localStorage.removeItem('user');
-    localStorage.removeItem('pgUser');
+    this.afAuth.auth.signOut();
+    // localStorage.removeItem('user');
+    // localStorage.removeItem('pgUser');
+    localStorage.clear();
     this.loggedIn.next(false);
-    this.router.navigate(['/login']);
   }
 }

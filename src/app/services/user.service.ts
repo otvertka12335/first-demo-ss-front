@@ -23,7 +23,6 @@ export class UserService {
       name,
     };
     return this.http.post('/users', body).subscribe(res => {
-      console.log(res);
     });
   }
 

@@ -12,35 +12,20 @@ import {RegistrationComponent} from './components/registration/registration.comp
 import {ProjectComponent} from './components/project/project.component';
 import {AngularFireModule} from '@angular/fire';
 import {AngularFireAuthModule} from '@angular/fire/auth';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {SnackbarModule} from 'ngx-snackbar';
 import {HttpInterceptorService} from './services/http-interceptor.service';
 import {CreateProjectComponent} from './modals/create-project/create-project.component';
 import {OrderModule} from 'ngx-order-pipe';
-import {
-  MatButtonModule,
-  MatCardModule,
-  MatDialogModule,
-  MatFormFieldModule,
-  MatIconModule,
-  MatInputModule,
-  MatListModule,
-  MatMenuModule,
-  MatPaginatorModule,
-  MatProgressSpinnerModule, MatSelectModule,
-  MatSidenavModule,
-  MatSortModule, MatStepperModule,
-  MatTableModule,
-  MatTabsModule,
-  MatToolbarModule
-} from '@angular/material';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {AngularResizedEventModule} from 'angular-resize-event';
-import {TestComponent} from './components/test/test.component';
 import {TeamComponent} from './modals/team/team.component';
 import {NgxMatSelectSearchModule} from 'ngx-mat-select-search';
-import { DevelopersComponent } from './components/developers/developers.component';
-import { MaintainersComponent } from './components/maintainers/maintainers.component';
+import {DevelopersComponent} from './components/developers/developers.component';
+import {MaintainersComponent} from './components/maintainers/maintainers.component';
+import {MaterialModule} from './material.module';
+import {ToastrModule} from 'ngx-toastr';
+import { TollbarComponent } from './components/tollbar/tollbar.component';
+import { ConfirmComponent } from './modals/confirm/confirm.component';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyA_sf-uY_LgmpuCR3BX4ptNgSIyZcR9WRc',
@@ -60,10 +45,11 @@ const firebaseConfig = {
     RegistrationComponent,
     ProjectComponent,
     CreateProjectComponent,
-    TestComponent,
     TeamComponent,
     DevelopersComponent,
     MaintainersComponent,
+    TollbarComponent,
+    ConfirmComponent,
   ],
   imports: [
     BrowserModule,
@@ -79,26 +65,18 @@ const firebaseConfig = {
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFireAuthModule,
     // MATERIAL
-    BrowserAnimationsModule,
     SnackbarModule.forRoot(),
-    MatListModule,
-    MatIconModule,
-    MatTableModule,
-    MatButtonModule,
-    MatToolbarModule,
-    MatSidenavModule,
-    MatMenuModule,
-    MatSortModule,
-    MatPaginatorModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatCardModule,
-    MatProgressSpinnerModule,
-    MatTabsModule,
-    MatDialogModule,
-    MatSelectModule,
+    MaterialModule,
     NgxMatSelectSearchModule,
-    MatStepperModule,
+    ToastrModule.forRoot({
+      timeOut: 3000,
+      positionClass: 'toast-bottom-center',
+      preventDuplicates: true,
+      countDuplicates: true,
+      progressBar: true,
+      progressAnimation: 'decreasing',
+    }) // ToastrModule added
+
   ],
   providers: [
     {
@@ -108,7 +86,7 @@ const firebaseConfig = {
     }
   ],
   bootstrap: [AppComponent],
-  entryComponents: [CreateProjectComponent, TeamComponent]
+  entryComponents: [CreateProjectComponent, TeamComponent, ConfirmComponent]
 })
 export class AppModule {
 }

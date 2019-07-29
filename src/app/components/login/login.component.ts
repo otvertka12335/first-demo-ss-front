@@ -24,7 +24,6 @@ export class LoginComponent implements OnInit {
     this.showSpinner = true;
     this.authService.login(this.username, this.password).then(
       res => {
-        console.log(res);
       },
       err => {
         this.showSpinner = false;

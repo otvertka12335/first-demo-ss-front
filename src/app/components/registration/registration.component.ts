@@ -36,7 +36,6 @@ export class RegistrationComponent implements OnInit {
     const name = this.registrationForm.get('name').value;
     this.authService.register(email, password, name).then(
       res => {
-        console.log(res);
       },
       err => {
         this.showSpinner = false;

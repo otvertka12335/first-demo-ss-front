@@ -57,16 +57,6 @@ export class ProjectComponent implements OnInit {
     });
   }
 
-  checkScreen() {
-    if (window.screen.width <= 450) { // 768px portrait
-      this.mobile = false;
-    }
-  }
-
-  onResized(event: ResizedEvent) {
-    event.newWidth <= 450 ? this.mobile = false : this.mobile = true;
-  }
-
   addTeamMates() {
     const dialogRef = this.dialog.open(TeamComponent, {
       width: '600px',
@@ -81,4 +71,15 @@ export class ProjectComponent implements OnInit {
       }
     });
   }
+
+  checkScreen() {
+    if (window.screen.width <= 450) { // 768px portrait
+      this.mobile = false;
+    }
+  }
+
+  onResized(event: ResizedEvent) {
+    event.newWidth <= 450 ? this.mobile = false : this.mobile = true;
+  }
+
 }

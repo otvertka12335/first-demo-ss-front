@@ -1,6 +1,4 @@
 import {Component} from '@angular/core';
-import {AuthService} from './services/auth.service';
-import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -8,14 +6,8 @@ import {Observable} from 'rxjs';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  isLoggedIn$: Observable<boolean>;
 
-  constructor(private authService: AuthService) {
+  constructor() {
   }
-
-  async logout(): Promise<void> {
-    await this.authService.logout();
-  }
-
 
 }
