@@ -1,5 +1,6 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
+import {filter} from 'rxjs/operators';
 
 @Component({
   selector: 'app-team',
@@ -23,7 +24,7 @@ export class TeamComponent implements OnInit {
     this.developers = $event;
   }
 
-  reciveMaintainers($event) {
+  receiveMaintainers($event) {
     this.maintainers = $event;
   }
 

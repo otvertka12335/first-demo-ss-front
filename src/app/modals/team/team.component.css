@@ -1,3 +1,13 @@
 ::ng-deep .mat-horizontal-stepper-header {
   pointer-events: none !important;
 }
+
+.done-container {
+  display: flex;
+}
+.maintainers {
+  margin: 10px;
+}
+.developers {
+  margin: 10px;
+}

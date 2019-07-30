@@ -14,6 +14,10 @@ export class TeamService {
     return this.http.get(`/teams/project/${projectId}`);
   }
 
+  getAProjectWhereUserExist(id) {
+    this.http.get('/connecting/projects');
+  }
+
   addTeamToProject(id, maintainers, developers) {
     const body = {
       project: id,

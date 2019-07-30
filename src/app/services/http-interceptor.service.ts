@@ -13,7 +13,7 @@ export class HttpInterceptorService implements HttpInterceptor {
     const cloned = req.clone({
       url: apiUrl + req.url,
       setHeaders: headers
-    });
+    })
     return next.handle(cloned).pipe(
       catchError(err => {
         console.log('Error status code: ' + err.status);

@@ -1,22 +1,83 @@
-<div class="modal-header">
-  <h4 class="modal-title" id="modal-basic-title">Create new Project</h4>
-</div>
-<div class="modal-body">
-  <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
-    <div class="form-group">
-      <label>Title</label>
-      <input type="text" class="form-control form-control-lg" id="name" placeholder="Title"
-             [formControl]="myForm.controls.name">
+<!--<div class="modal-header">-->
+  <!--<h4 class="modal-title" id="modal-basic-title">Create new Project</h4>-->
+<!--</div>-->
+<!--<div class="modal-body">-->
+  <!--<form [formGroup]="myForm" (ngSubmit)="onSubmit()">-->
+    <!--<div class="form-group">-->
+      <!--<label>Title</label>-->
+      <!--<input type="text" class="form-control form-control-lg" id="name" placeholder="Title"-->
+             <!--[formControl]="myForm.controls.name">-->
+    <!--</div>-->
+    <!--<div class="form-group">-->
+      <!--<label>Description</label>-->
+      <!--<textarea class="form-control" id="description" placeholder="Description" rows="3"-->
+                <!--[formControl]="myForm.controls.description"></textarea>-->
+    <!--</div>-->
+    <!--<div class="form-group">-->
+      <!--<input type="text" class="form-control" id="userId" placeholder="user" hidden readonly-->
+             <!--[formControl]="myForm.controls.userId">-->
+    <!--</div>-->
+    <!--<button type="submit" class="btn btn-primary w-100">Save</button>-->
+  <!--</form>-->
+<!--</div>-->
+
+
+<h1 mat-dialog-title>Create new Project</h1>
+<div mat-dialog-content>
+  <form [formGroup]="myForm">
+    <div class="my-container">
+      <mat-form-field>
+        <input matInput type="text" id="name" placeholder="Title" [formControl]="myForm.controls.name">
+        <div *ngIf="myForm.get('name').invalid &&
+                (myForm.get('name').dirty || myForm.get('name').touched)">
+          <small class="form-text text-danger"
+                 *ngIf="myForm.get('name').errors.required">
+            Name is required.
+          </small>
+          <small class="form-text text-danger"
+                 *ngIf="myForm.get('name').errors.maxlength">
+            Name must be lower to 15.
+          </small>
+          <small class="form-text text-danger"
+                 *ngIf="myForm.get('name').errors.minlength">
+            Password must be at least 3 characters long
+          </small>
+        </div>
+      </mat-form-field>
+
+      <mat-form-field>
+        <textarea matInput id="description" placeholder="Description"
+                  [formControl]="myForm.controls.description"></textarea>
+      </mat-form-field>
+
+      <mat-form-field hidden>
+        <input matInput type="text" id="userId" placeholder="user" readonly
+               [formControl]="myForm.controls.userId">
+      </mat-form-field>
     </div>
-    <div class="form-group">
-      <label>Description</label>
-      <textarea class="form-control" id="description" placeholder="Description" rows="3"
-                [formControl]="myForm.controls.description"></textarea>
-    </div>
-    <div class="form-group">
-      <input type="text" class="form-control" id="userId" placeholder="user" hidden readonly
-             [formControl]="myForm.controls.userId">
-    </div>
-    <button type="submit" class="btn btn-primary w-100">Save</button>
   </form>
 </div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">No Thanks</button>
+  <button mat-button color="primary" [disabled]="!myForm.valid" (click)="onSubmit()">Ok</button>
+</div>
+
+
+  <!--<form [formGroup]="myForm" (ngSubmit)="onSubmit()">-->
+    <!--<div class="form-group">-->
+      <!--<label>Title</label>-->
+      <!--<input type="text" class="form-control form-control-lg" id="name" placeholder="Title"-->
+             <!--[formControl]="myForm.controls.name">-->
+    <!--</div>-->
+    <!--<div class="form-group">-->
+      <!--<label>Description</label>-->
+      <!--<textarea class="form-control" id="description" placeholder="Description" rows="3"-->
+                <!--[formControl]="myForm.controls.description"></textarea>-->
+    <!--</div>-->
+    <!--<div class="form-group">-->
+      <!--<input type="text" class="form-control" id="userId" placeholder="user" hidden readonly-->
+             <!--[formControl]="myForm.controls.userId">-->
+    <!--</div>-->
+    <!--<button type="submit" class="btn btn-primary w-100">Save</button>-->
+  <!--</form>-->
+

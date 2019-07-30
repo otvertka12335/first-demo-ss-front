@@ -6,6 +6,6 @@ export class Project {
     public name: string,
     public description: string,
     public userId: User,
-    public createdAt: string
+    // public createdAt: string
   ) {  }
 }

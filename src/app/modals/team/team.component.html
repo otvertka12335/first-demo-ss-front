@@ -2,7 +2,7 @@
   <mat-step [stepControl]="firstFormGroup">
     <form>
       <ng-template matStepLabel>Maintainers</ng-template>
-      <app-maintainers (maintainersEvent)="reciveMaintainers($event)"></app-maintainers>
+      <app-maintainers (maintainersEvent)="receiveMaintainers($event)"></app-maintainers>
     </form>
   </mat-step>
   <mat-step [stepControl]="secondFormGroup">
@@ -13,7 +13,21 @@
   </mat-step>
   <mat-step>
     <ng-template matStepLabel>Done</ng-template>
-    You are now done.
+    <div class="done-container">
+      <div class="maintainers">
+        <p> Your maintainers: </p>
+        <ul *ngFor="let mai of maintainers">
+          <li>{{mai.name}}</li>
+        </ul>
+      </div>
+      <div class="developers">
+        <p> Your developers: </p>
+        <ul *ngFor="let dev of developers">
+          <li>{{dev.name}}</li>
+        </ul>
+      </div>
+    </div>
+    <p>Do you want to save this?</p>
     <div>
       <button mat-button matStepperPrevious>Back</button>
       <button mat-button matStepperPrevious (click)="modalClose()">Cancel</button>

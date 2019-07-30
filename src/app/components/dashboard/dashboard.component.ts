@@ -80,34 +80,63 @@ export class DashboardComponent implements OnInit {
   }
 
   addProject() {
-    const modalRef = this.modalService.open(CreateProjectComponent);
-    modalRef.componentInstance.project = {};
-    modalRef.result.then((newProject: Project) => {
-      this.projectService.create(newProject)
-        .subscribe((res: any) => {
-          this.projectService.getProjectById(res.data.id).subscribe(newRes => {
-            this.projects.unshift(newRes.data);
-            this.setData();
-            // this.toast.showSuccess();
-          });
-        });
-    }).catch(() => {
+    const dialogRef = this.dialog.open(CreateProjectComponent, {
+      width: '450px'
+    });
+    dialogRef.componentInstance.project = {};
+    dialogRef.afterClosed().subscribe((data: any) => {
+      if (data.result) {
+        let newProject: Project;
+        newProject = {
+          id: data.id,
+          name: data.name,
+          description: data.description,
+          userId: data.userId,
+        };
+        this.projectService.create(newProject)
+          .subscribe(
+            (res: any) => {
+              this.projectService.getProjectById(res.data.id).subscribe(newRes => {
+                this.projects.unshift(newRes.data);
+                this.setData();
+                this.toast.showSuccess('You have successfully created a project', 'Project');
+              });
+            },
+            (error) => {
+              this.toast.showError(error, 'Create Project');
+            });
+      } else {
+        this.toast.showInfo(`You don't save project`, 'Create Project');
+      }
     });
   }
 
   editProject(project) {
-    const modalRef = this.modalService.open(CreateProjectComponent);
-    modalRef.componentInstance.project = project;
-    modalRef.result.then((editedProject: Project) => {
-      this.projectService.editProject(editedProject)
-        .subscribe(() => {
-          const userIndex = this.projects.findIndex(p => p.id === editedProject.id);
-          this.projectService.getProjectById(editedProject.id).subscribe(res => {
-            this.projects.splice(userIndex, 1, res.data);
-            this.setData();
+    const dialogRef = this.dialog.open(CreateProjectComponent, {
+      width: '450px'
+    });
+    dialogRef.componentInstance.project = project;
+    dialogRef.afterClosed().subscribe((data: any) => {
+      if (data.result) {
+        let editedProject: Project;
+        editedProject = {
+          id: data.id,
+          name: data.name,
+          description: data.description,
+          userId: data.userId,
+        };
+        this.projectService.editProject(editedProject)
+          .subscribe(() => {
+            const userIndex = this.projects.findIndex(p => p.id === editedProject.id);
+            this.projectService.getProjectById(editedProject.id).subscribe(res => {
+              this.projects.splice(userIndex, 1, res.data);
+              this.setData();
+              this.toast.showSuccess('Project successfully edited', 'Project');
+            });
           });
-        });
-    }).catch(() => {
+      } else {
+        this.toast.showInfo(`You don't save project`, 'Create Project');
+      }
     });
   }
 
@@ -121,6 +150,7 @@ export class DashboardComponent implements OnInit {
         this.projectService.deleteProject(id).subscribe(() => {
           this.projects = this.projects.filter(project => project.id !== id);
           this.setData();
+          this.toast.showSuccess('Project successfully deleted', 'Project');
         });
       }
     });

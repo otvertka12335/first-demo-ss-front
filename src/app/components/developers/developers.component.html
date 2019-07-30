@@ -1,6 +1,6 @@
 <p>
   <mat-form-field>
-    <mat-select [formControl]="bankMultiCtrl" placeholder="Users" [multiple]="true" #multiSelect>
+    <mat-select [formControl]="bankMultiCtrl" placeholder="Developers" [multiple]="true" #multiSelect>
       <ngx-mat-select-search [formControl]="bankMultiFilterCtrl"></ngx-mat-select-search>
       <mat-option *ngFor="let bank of filteredBanksMulti | async" [value]="bank">
         {{bank.name}}
@@ -8,12 +8,6 @@
     </mat-select>
   </mat-form-field>
 </p>
-<p>
-  Selected Users:
-</p>
-<ul *ngFor="let bank of bankMultiCtrl?.value">
-  <li>{{bank.name}}</li>
-</ul>
 <div>
   <button mat-button matStepperPrevious>Back</button>
   <button mat-button matStepperNext (click)="nextClick()">Next</button>

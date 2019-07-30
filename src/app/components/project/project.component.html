@@ -15,8 +15,12 @@
       <p>{{project.description}}</p>
     </div>
     <div class="col-md-4">
-      <h3 class="my-3">Project Team</h3>
-      <small><button mat-button (click)="addTeamMates()"><mat-icon>edit</mat-icon></button></small>
+      <div class="project-header">
+        <h3 class="my-3">Project Team</h3>
+        <button class="my-3" mat-icon-button (click)="addTeamMates()">
+          <mat-icon>edit</mat-icon>
+        </button>
+      </div>
       <mat-list>
         <h3 mat-subheader>Owner</h3>
         <mat-list-item>

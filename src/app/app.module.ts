@@ -24,8 +24,9 @@ import {DevelopersComponent} from './components/developers/developers.component'
 import {MaintainersComponent} from './components/maintainers/maintainers.component';
 import {MaterialModule} from './material.module';
 import {ToastrModule} from 'ngx-toastr';
-import { TollbarComponent } from './components/tollbar/tollbar.component';
-import { ConfirmComponent } from './modals/confirm/confirm.component';
+import {TollbarComponent} from './components/tollbar/tollbar.component';
+import {ConfirmComponent} from './modals/confirm/confirm.component';
+import {ConnectingComponent} from './components/connecting/connecting.component';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyA_sf-uY_LgmpuCR3BX4ptNgSIyZcR9WRc',
@@ -50,6 +51,7 @@ const firebaseConfig = {
     MaintainersComponent,
     TollbarComponent,
     ConfirmComponent,
+    ConnectingComponent,
   ],
   imports: [
     BrowserModule,

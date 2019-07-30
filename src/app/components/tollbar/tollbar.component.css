@@ -1,3 +1,10 @@
 button:focus {
   outline: 0;
 }
+
+.fill-remaining-space {
+  margin: 5px;
+}
+.title-block {
+  cursor: pointer;
+}

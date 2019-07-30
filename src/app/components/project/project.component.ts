@@ -1,11 +1,12 @@
 import {Component, OnInit} from '@angular/core';
 import {ProjectService} from '../../services/project.service';
 import {TeamService} from '../../services/team.service';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {Project} from '../../models/project.model';
 import {ResizedEvent} from 'angular-resize-event';
 import {MatDialog} from '@angular/material';
 import {TeamComponent} from '../../modals/team/team.component';
+import {ToastService} from '../../services/toast.service';
 
 @Component({
   selector: 'app-project',
@@ -13,6 +14,8 @@ import {TeamComponent} from '../../modals/team/team.component';
   styleUrls: ['./project.component.css']
 })
 export class ProjectComponent implements OnInit {
+
+  canEdit = true;
 
   project: Project;
   maintainers = [];
@@ -22,6 +25,8 @@ export class ProjectComponent implements OnInit {
   constructor(private projectService: ProjectService,
               private teamService: TeamService,
               private router: ActivatedRoute,
+              private route: Router,
+              private toast: ToastService,
               private dialog: MatDialog) {
   }
 
@@ -42,6 +47,7 @@ export class ProjectComponent implements OnInit {
           this.developers.push(filtered);
         }
       });
+      // this.checkAccess();
     });
   }
 
@@ -80,6 +86,30 @@ export class ProjectComponent implements OnInit {
 
   onResized(event: ResizedEvent) {
     event.newWidth <= 450 ? this.mobile = false : this.mobile = true;
+  }
+
+  checkAccess(): boolean {
+    const currentId = JSON.parse(localStorage.getItem('pgUser')).id;
+    if (currentId === this.project.userId) {
+      this.canEdit = true;
+      return true;
+    }
+    const m = this.maintainers.some((f: any) => {
+      return f.user === currentId;
+    });
+
+    const d = this.developers.some((f: any) => {
+      return f.user === currentId;
+    });
+
+    if (m || d) {
+      this.canEdit = false;
+      return true;
+    }
+
+    this.toast.showError('Very clever?)', 'Project access deny');
+    this.route.navigate(['/']);
+    return false;
   }
 
 }
