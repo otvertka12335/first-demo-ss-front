@@ -1,9 +1,9 @@
 import {Component, Inject, Input, OnInit} from '@angular/core';
-import {NgbActiveModal, NgbModal, NgbModalConfig} from '@ng-bootstrap/ng-bootstrap';
+import {NgbModal, NgbModalConfig} from '@ng-bootstrap/ng-bootstrap';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Project} from '../../models/project.model';
 import {UserService} from '../../services/user.service';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
+import {Project} from '../../models/project.model';
 
 @Component({
   selector: 'app-create-project',
@@ -13,7 +13,7 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 })
 export class CreateProjectComponent implements OnInit {
 
-  @Input() project: {};
+  @Input() project: Project;
 
   myForm: FormGroup;
 

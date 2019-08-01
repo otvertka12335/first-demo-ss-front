@@ -35,8 +35,7 @@ export class AuthService {
 
   // Check existence of token
   static isAuthenticated(): boolean {
-    console.log(localStorage.getItem('user') && localStorage.getItem('pgUser'));
-    return localStorage.getItem('user') && localStorage.getItem('pgUser');
+    return JSON.parse(localStorage.getItem('user')) && JSON.parse(localStorage.getItem('pgUser'));
   }
 
   async login(email: string, password: string) {

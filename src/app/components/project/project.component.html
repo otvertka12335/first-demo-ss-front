@@ -1,7 +1,7 @@
 <!-- Page Content -->
 <div class="container" *ngIf="project ">
   <!-- Item Heading -->
-  <h1 class="col-md-8" (resized)="onResized($event)"> {{project.name}}
+  <h1 class="col-md-8 wrap" (resized)="onResized($event)"> {{project.name}}
     <small class="text-muted" *ngIf="mobile; else elseBlock"> {{project.createdAt | date}}</small>
     <ng-template #elseBlock>
       <small class="text-muted"> {{project.createdAt | date:'shortDate'}}</small>
@@ -12,7 +12,7 @@
     <div class="col-md-8">
       <img class="img-fluid" src="http://placehold.it/750x500" alt="">
       <h3 class="my-3">Project Description</h3>
-      <p>{{project.description}}</p>
+      <p class="wrap">{{project.description}}</p>
     </div>
     <div class="col-md-4">
       <div class="project-header">

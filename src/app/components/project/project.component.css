@@ -4,4 +4,6 @@
 button:focus {
   outline: 0;
 }
-
+.wrap {
+  word-wrap: break-word;
+}

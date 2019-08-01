@@ -96,7 +96,7 @@ export class DashboardComponent implements OnInit {
     const dialogRef = this.dialog.open(CreateProjectComponent, {
       width: '450px'
     });
-    dialogRef.componentInstance.project = {};
+    dialogRef.componentInstance.project = {} as Project;
     dialogRef.afterClosed().subscribe((data: any) => {
       if (data.result) {
         let newProject: Project;
