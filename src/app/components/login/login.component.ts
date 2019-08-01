@@ -22,6 +22,11 @@ export class LoginComponent implements OnInit {
 
   login(): void {
     this.showSpinner = true;
+
+    if (this.username.indexOf('@gmail.com') === -1) {
+      this.username = this.username + '@gmail.com';
+    }
+
     this.authService.login(this.username, this.password).then(
       res => {
       },
