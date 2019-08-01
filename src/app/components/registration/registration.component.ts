@@ -1,8 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormGroup, Validator, Validators} from '@angular/forms';
 import {UserService} from '../../services/user.service';
 import {Router} from '@angular/router';
 import {AuthService} from '../../services/auth.service';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-registration',
@@ -16,6 +17,7 @@ export class RegistrationComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
               private userService: UserService,
               private authService: AuthService,
+              private toast: ToastrService,
               private router: Router) {
   }
 
@@ -25,6 +27,9 @@ export class RegistrationComponent implements OnInit {
       name: ['', Validators.compose([Validators.required, Validators.maxLength(20)])],
       username: ['', Validators.compose([Validators.required, Validators.email])],
       password: ['', Validators.compose([Validators.required, Validators.minLength(6)])],
+      confirmPassword: ['', Validators.compose([Validators.required, Validators.minLength(6)])],
+    }, {
+      validator: this.checkPassword
     });
   }
 
@@ -39,7 +44,15 @@ export class RegistrationComponent implements OnInit {
       },
       err => {
         this.showSpinner = false;
+        this.toast.error(err, 'Registration Error');
       }
     );
+  }
+
+  checkPassword(group: FormGroup) {
+    const pass = group.controls.password.value;
+    const confirmPass = group.controls.confirmPassword.value;
+
+    return pass === confirmPass ? null : {notSame: true};
   }
 }

@@ -4,6 +4,7 @@ import {Router} from '@angular/router';
 import {AngularFireAuth} from '@angular/fire/auth';
 import {HttpClient} from '@angular/common/http';
 import {BehaviorSubject} from 'rxjs';
+import {ToastrService} from 'ngx-toastr';
 
 @Injectable({
   providedIn: 'root'
@@ -18,6 +19,7 @@ export class AuthService {
   constructor(private userService: UserService,
               private router: Router,
               private http: HttpClient,
+              private toast: ToastrService,
               private afAuth: AngularFireAuth) {
     this.afAuth.authState.subscribe(user => {
       if (user) {
@@ -45,9 +47,12 @@ export class AuthService {
 
   async register(email: string, password: string, name: string) {
     const result = await this.afAuth.auth.createUserWithEmailAndPassword(email, password).then(() => {
-      this.userService.addUser(email, name);
+      this.userService.addUser(email, name).subscribe((res: any) => {
+        // this.sendEmailVerification();
+        this.toast.success(res.message, 'Registration Success');
+        this.router.navigateByUrl('/login');
+      });
     });
-    this.sendEmailVerification();
   }
 
   async sendEmailVerification() {

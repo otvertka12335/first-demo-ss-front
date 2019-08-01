@@ -22,8 +22,7 @@ export class UserService {
       username,
       name,
     };
-    return this.http.post('/users', body).subscribe(res => {
-    });
+    return this.http.post('/users', body);
   }
 
   getPgUserFromStorage(): User {

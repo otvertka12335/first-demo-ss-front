@@ -24,7 +24,7 @@
             </mat-form-field>
             <mat-form-field class="form-label-group">
               <input matInput type="text" id="username" name="username"
-                     placeholder="Username" formControlName="username">
+                     placeholder="Email" formControlName="username">
               <div *ngIf="registrationForm.get('username').invalid &&
               (registrationForm.get('username').dirty || registrationForm.get('username').touched)">
                 <small class="form-text text-danger"
@@ -49,6 +49,18 @@
                 <small class="form-text text-danger"
                        *ngIf="registrationForm.get('password').errors.minlength">
                   Password must be at least 6 characters long
+                </small>
+              </div>
+            </mat-form-field>
+
+            <mat-form-field class="form-label-group">
+              <input matInput type="password" id="confirmPassword" name="confirmPassword"
+                     placeholder="Confirm Password" formControlName="confirmPassword">
+              <div *ngIf="registrationForm.get('confirmPassword').invalid &&
+              (registrationForm.get('confirmPassword').dirty || registrationForm.get('confirmPassword').touched)">
+                <small class="form-text text-danger"
+                       *ngIf="registrationForm.hasError('notSame')">
+                  Password not match
                 </small>
               </div>
             </mat-form-field>

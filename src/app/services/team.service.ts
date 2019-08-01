@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs';
 
 @Injectable({
@@ -14,8 +14,8 @@ export class TeamService {
     return this.http.get(`/teams/project/${projectId}`);
   }
 
-  getAProjectWhereUserExist(id) {
-    this.http.get('/connecting/projects');
+  getAProjectWhereUserExist(id: number): Observable<any> {
+    return this.http.get(`/teams/connecting/${id}`);
   }
 
   addTeamToProject(id, maintainers, developers) {

@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthService} from '../../services/auth.service';
-import {SnackbarService} from 'ngx-snackbar';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
@@ -14,7 +14,7 @@ export class LoginComponent implements OnInit {
   private showSpinner = false;
 
   constructor(private authService: AuthService,
-              private toster: SnackbarService) {
+              private toast: ToastrService) {
   }
 
   ngOnInit() {
@@ -27,10 +27,8 @@ export class LoginComponent implements OnInit {
       },
       err => {
         this.showSpinner = false;
+        this.toast.error(err, 'Login Error');
       }
     );
-    //   // .then((value: boolean) => {
-    //   //   this.badCredentials = !value;
-    //   // });
   }
 }

@@ -1,0 +1,35 @@
+.row {
+  padding-top: 15px;
+}
+
+table {
+  width: 100%;
+}
+
+th.mat-sort-header-sorted {
+  color: black;
+}
+
+.mat-row:hover {
+  cursor: pointer;
+  background-color: #ccc;
+}
+
+table button:focus {
+  outline: none;
+}
+
+table button:hover {
+  background-color: #fff;
+}
+
+mat-paginator {
+  width: 100%;
+}
+
+.fixed-block {
+  padding-top: .3rem;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}

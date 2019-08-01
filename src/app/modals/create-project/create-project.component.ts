@@ -13,7 +13,7 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 })
 export class CreateProjectComponent implements OnInit {
 
-  @Input() project: Project;
+  @Input() project: {};
 
   myForm: FormGroup;
 

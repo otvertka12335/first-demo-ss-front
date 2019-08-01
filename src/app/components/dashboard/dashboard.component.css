@@ -33,3 +33,10 @@ mat-paginator {
   display: flex;
   justify-content: flex-end;
 }
+
+.empty {
+  /*color: #ff4081;*/
+  display: flex;
+  justify-content: center;
+  margin: 1em 0;
+}

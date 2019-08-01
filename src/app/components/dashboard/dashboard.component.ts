@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {AuthService} from '../../services/auth.service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {Project} from '../../models/project.model';
@@ -8,10 +8,11 @@ import {User} from '../../models/user.model';
 import {CreateProjectComponent} from '../../modals/create-project/create-project.component';
 import {Router} from '@angular/router';
 import {MatDialog, MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
-import {Subscription} from 'rxjs';
+import {Observable, Subject, Subscription} from 'rxjs';
 import {MediaChange, MediaObserver} from '@angular/flex-layout';
 import {ToastService} from '../../services/toast.service';
 import {ConfirmComponent} from '../../modals/confirm/confirm.component';
+import {debounceTime, distinctUntilChanged, filter, mergeMap} from 'rxjs/operators';
 
 @Component({
   selector: 'app-dashboard',
@@ -25,6 +26,9 @@ export class DashboardComponent implements OnInit {
   dataSource;
   currentScreenWidth = '';
   flexMediaWatcher: Subscription;
+
+  private subject: Subject<string> = new Subject();
+
 
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
@@ -54,6 +58,15 @@ export class DashboardComponent implements OnInit {
         this.projects = projects.data;
         this.setData();
       });
+
+    // SEARCH WITH DEBOUNCE
+    this.subject.pipe(
+      filter(f => f.length > 2),
+      debounceTime(1000),
+      distinctUntilChanged()
+    ).subscribe(searchTextValue => {
+      console.log(searchTextValue);
+    });
   }
 
   setData() {
@@ -152,8 +165,14 @@ export class DashboardComponent implements OnInit {
           this.setData();
           this.toast.showSuccess('Project successfully deleted', 'Project');
         });
+      } else {
+        this.toast.showInfo(`You don't save project`, 'Create Project');
       }
     });
+  }
+
+  applyFilter(filterValue: string) {
+    this.subject.next(filterValue);
   }
 
 
