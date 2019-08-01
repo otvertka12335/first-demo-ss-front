@@ -53,19 +53,18 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
     const user = this.userService.getPgUserFromStorage();
-    this.projectService.getProjectsByUser(user.id)
-      .subscribe((projects: any) => {
-        this.projects = projects.data;
-        this.setData();
-      });
-
+    this.getAllProjectForUser(user.id);
     // SEARCH WITH DEBOUNCE
     this.subject.pipe(
-      filter(f => f.length > 2),
-      debounceTime(1000),
+      // filter(f => f.length > 2),
+      debounceTime(750),
       distinctUntilChanged()
     ).subscribe(searchTextValue => {
-      console.log(searchTextValue);
+      if (searchTextValue.length !== 0) {
+        this.getAllProjectForUserUsingSearch(user.id, searchTextValue);
+      } else {
+        this.getAllProjectForUser(user.id);
+      }
     });
   }
 
@@ -173,6 +172,20 @@ export class DashboardComponent implements OnInit {
 
   applyFilter(filterValue: string) {
     this.subject.next(filterValue);
+  }
+
+  getAllProjectForUser(id) {
+    this.projectService.getProjectsByUser(id).subscribe((projects: any) => {
+      this.projects = projects.data;
+      this.setData();
+    });
+  }
+
+  getAllProjectForUserUsingSearch(id, searchString) {
+    this.projectService.searchProject(id, searchString).subscribe((res: any) => {
+      this.projects = res.data;
+      this.setData();
+    });
   }
 
 

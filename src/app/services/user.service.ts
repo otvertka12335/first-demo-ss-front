@@ -17,6 +17,10 @@ export class UserService {
     return this.http.get<User[]>('/users');
   }
 
+  getUsersWithOutCurrent(id): Observable<User[]> {
+    return this.http.get<User[]>(`/users/without/${id}`);
+  }
+
   addUser(username: string, name: string) {
     const body = {
       username,

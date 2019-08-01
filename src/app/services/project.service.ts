@@ -46,4 +46,8 @@ export class ProjectService {
   changeProjectData(project: Project) {
     this.projectData.next(project);
   }
+
+  searchProject(id: number, searchString) {
+    return this.http.get(`/projects/search/${id}/${searchString}`);
+  }
 }

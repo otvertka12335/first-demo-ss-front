@@ -37,7 +37,8 @@ export class DevelopersComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.userService.getUsers().subscribe((res: any) => {
+    const user = this.userService.getPgUserFromStorage();
+    this.userService.getUsersWithOutCurrent(user.id).subscribe((res: any) => {
       this.users = res.data;
       // set initial selection
       let selectedDevelopers;

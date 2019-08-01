@@ -4,6 +4,7 @@ import {Observable, throwError} from 'rxjs';
 import {catchError} from 'rxjs/operators';
 import {environment} from '../../environments/environment';
 import {Router} from '@angular/router';
+import {NetworkInterfaceBase} from 'os';
 
 @Injectable()
 export class HttpInterceptorService implements HttpInterceptor {
