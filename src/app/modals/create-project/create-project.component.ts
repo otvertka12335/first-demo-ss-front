@@ -3,7 +3,6 @@ import {NgbModal, NgbModalConfig} from '@ng-bootstrap/ng-bootstrap';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {UserService} from '../../services/user.service';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
-import {Project} from '../../models/project.model';
 
 @Component({
   selector: 'app-create-project',
@@ -13,7 +12,7 @@ import {Project} from '../../models/project.model';
 })
 export class CreateProjectComponent implements OnInit {
 
-  @Input() project: Project;
+  @Input() project: any;
 
   myForm: FormGroup;
 
@@ -26,21 +25,20 @@ export class CreateProjectComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.project.userId = this.userService.getPgUserFromStorage();
-    if (this.project.userId) {
-      this.myForm = this.fb.group({
-        name: [this.project.name,
-          Validators.compose([
-            Validators.required,
-            Validators.maxLength(15),
-            Validators.minLength(3)
-          ])],
-        description: [this.project.description,
-          Validators.required],
-        userId: [this.project.userId.id,
-          Validators.required]
-      });
-    }
+    // this.project.userId = this.userService.getPgUserFromStorage();
+    console.log(this.project);
+    this.myForm = this.fb.group({
+      name: [this.project.name,
+        Validators.compose([
+          Validators.required,
+          Validators.maxLength(15),
+          Validators.minLength(3)
+        ])],
+      description: [this.project.description,
+        Validators.required],
+      userId: [this.project.userId,
+        Validators.required]
+    });
   }
 
   onSubmit(): void {

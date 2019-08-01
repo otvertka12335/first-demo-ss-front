@@ -57,32 +57,32 @@ export class ConnectingComponent implements OnInit {
 
   editProject(project) {
     project = project.project_id;
-    // const dialogRef = this.dialog.open(CreateProjectComponent, {
-    //   width: '450px',
-    // });
-    // dialogRef.componentInstance.project = project;
-    // dialogRef.afterClosed().subscribe((data: any) => {
-    //   if (data.result) {
-    //     let editedProject: Project;
-    //     editedProject = {
-    //       id: data.id,
-    //       name: data.name,
-    //       description: data.description,
-    //       userId: data.userId,
-    //     };
-    //     this.projectService.editProject(editedProject)
-    //       .subscribe(() => {
-    //         const userIndex = this.projects.findIndex(p => p.id === editedProject.id);
-    //         this.projectService.getProjectById(editedProject.id).subscribe(res => {
-    //           this.projects.splice(userIndex, 1, res.data);
-    //           this.setData();
-    //           this.toast.showSuccess('Project successfully edited', 'Project');
-    //         });
-    //       });
-    //   } else {
-    //     this.toast.showInfo(`You don't save project`, 'Create Project');
-    //   }
-    // });
+    const dialogRef = this.dialog.open(CreateProjectComponent, {
+      width: '450px',
+    });
+    dialogRef.componentInstance.project = project;
+    dialogRef.afterClosed().subscribe((data: any) => {
+      if (data.result) {
+        let editedProject: Project;
+        editedProject = {
+          id: data.id,
+          name: data.name,
+          description: data.description,
+          userId: data.userId,
+        };
+        this.projectService.editProject(editedProject)
+          .subscribe(() => {
+            const userIndex = this.projects.findIndex(p => p.id === editedProject.id);
+            this.projectService.getProjectById(editedProject.id).subscribe(res => {
+              this.projects.splice(userIndex, 1, res.data);
+              this.setData();
+              this.toast.showSuccess('Project successfully edited', 'Project');
+            });
+          });
+      } else {
+        this.toast.showInfo(`You don't save project`, 'Create Project');
+      }
+    });
   }
 
   removeProject(id: number) {
@@ -102,5 +102,12 @@ export class ConnectingComponent implements OnInit {
       }
     });
   }
+
+  showInfo(project): void {
+    console.log(project);
+    this.projectService.changeProjectData(project.project_id);
+    this.router.navigateByUrl(`/project/${project.project_id.id}`);
+  }
+
 
 }

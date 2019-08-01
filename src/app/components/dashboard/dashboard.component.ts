@@ -12,7 +12,7 @@ import {Subject, Subscription} from 'rxjs';
 import {MediaChange, MediaObserver} from '@angular/flex-layout';
 import {ToastService} from '../../services/toast.service';
 import {ConfirmComponent} from '../../modals/confirm/confirm.component';
-import {debounceTime, distinctUntilChanged, filter} from 'rxjs/operators';
+import {debounceTime, distinctUntilChanged} from 'rxjs/operators';
 
 @Component({
   selector: 'app-dashboard',
@@ -95,7 +95,9 @@ export class DashboardComponent implements OnInit {
     const dialogRef = this.dialog.open(CreateProjectComponent, {
       width: '450px'
     });
-    dialogRef.componentInstance.project = {} as Project;
+    dialogRef.componentInstance.project = {
+      userId: this.userService.getPgUserFromStorage().id
+    };
     dialogRef.afterClosed().subscribe((data: any) => {
       if (data.result) {
         let newProject: Project;
