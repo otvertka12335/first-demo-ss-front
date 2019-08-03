@@ -10,16 +10,13 @@
   <!-- Item Row -->
   <div class="row">
     <div class="col-md-8">
-      <img class="img-fluid" src="http://placehold.it/750x500" alt="">
+      <!--<img class="img-fluid" src="http://placehold.it/750x500" alt="">-->
       <h3 class="my-3">Project Description</h3>
       <p class="wrap">{{project.description}}</p>
     </div>
     <div class="col-md-4">
       <div class="project-header">
         <h3 class="my-3">Project Team</h3>
-        <button class="my-3" mat-icon-button (click)="addTeamMates()">
-          <mat-icon>edit</mat-icon>
-        </button>
       </div>
       <mat-list>
         <h3 mat-subheader>Owner</h3>
@@ -58,6 +55,12 @@
           </mat-list-item>
         </ng-template>
       </mat-list>
+
+      <div class="manage-block">
+        <button mat-raised-button color="primary" (click)="addTeamMates()">
+          Manage Team
+        </button>
+      </div>
     </div>
   </div>
   <!-- /.row -->

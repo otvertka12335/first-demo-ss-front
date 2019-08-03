@@ -6,4 +6,9 @@ button:focus {
 }
 .wrap {
   word-wrap: break-word;
+  padding: 0 !important;
+}
+.manage-block {
+  display: flex;
+  justify-content: flex-end;
 }
