@@ -13,9 +13,6 @@ import {JwtHelperService} from '@auth0/angular-jwt';
 export class AuthService {
 
   private loggedIn = new BehaviorSubject<boolean>(false); // {1}
-  get isLoggedIn() {
-    return this.loggedIn.asObservable(); // {2}
-  }
 
   constructor(private userService: UserService,
               private router: Router,
@@ -30,9 +27,6 @@ export class AuthService {
   }
 
   login(username: string, password: string) {
-    // const result = await this.afAuth.auth.signInWithEmailAndPassword(email, password).then(() => {
-    //   this.loggedIn.next(true);
-    // });
     return this.http.post('/users/login', {
       username,
       password
@@ -40,13 +34,6 @@ export class AuthService {
   }
 
   register(username: string, name: string, password: string) {
-    // const result = await this.afAuth.auth.createUserWithEmailAndPassword(email, password).then(() => {
-    //   this.userService.addUser(email, name).subscribe((res: any) => {
-    //     // this.sendEmailVerification();
-    //     this.toast.success(res.message, 'Registration Success');
-    //     this.router.navigateByUrl('/login');
-    //   });
-    // });
     return this.http.post('/users', {
       username,
       name,
@@ -56,8 +43,6 @@ export class AuthService {
 
   async logout() {
     this.afAuth.auth.signOut();
-    // localStorage.removeItem('user');
-    // localStorage.removeItem('pgUser');
     localStorage.clear();
     this.loggedIn.next(false);
   }

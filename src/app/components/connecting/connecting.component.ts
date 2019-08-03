@@ -6,7 +6,6 @@ import {MatDialog, MatPaginator, MatSort, MatTableDataSource} from '@angular/mat
 import {UserService} from '../../services/user.service';
 import {ProjectService} from '../../services/project.service';
 import {AuthService} from '../../services/auth.service';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {Router} from '@angular/router';
 import {ToastService} from '../../services/toast.service';
 import {CreateProjectComponent} from '../../modals/create-project/create-project.component';
@@ -103,7 +102,6 @@ export class ConnectingComponent implements OnInit {
   }
 
   showInfo(project): void {
-    console.log(project);
     this.projectService.changeProjectData(project.project_id);
     this.router.navigateByUrl(`/project/${project.project_id.id}`);
   }

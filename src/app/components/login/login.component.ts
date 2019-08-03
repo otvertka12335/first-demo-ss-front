@@ -10,7 +10,6 @@ import {ToastrService} from 'ngx-toastr';
 export class LoginComponent implements OnInit {
   username: string;
   password: string;
-  badCredentials: boolean;
   private showSpinner = false;
 
   constructor(private authService: AuthService,

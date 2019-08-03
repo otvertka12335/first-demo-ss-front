@@ -4,7 +4,7 @@ import {ReplaySubject, Subject} from 'rxjs';
 import {MAT_DIALOG_DATA, MatSelect} from '@angular/material';
 import {UserService} from '../../services/user.service';
 import {TeamService} from '../../services/team.service';
-import {filter, take, takeUntil} from 'rxjs/operators';
+import {take, takeUntil} from 'rxjs/operators';
 
 @Component({
   selector: 'app-developers',

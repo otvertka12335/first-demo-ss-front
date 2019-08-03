@@ -27,7 +27,7 @@ import {ToastrModule} from 'ngx-toastr';
 import {TollbarComponent} from './components/tollbar/tollbar.component';
 import {ConfirmComponent} from './modals/confirm/confirm.component';
 import {ConnectingComponent} from './components/connecting/connecting.component';
-import { NotFoundedComponent } from './components/not-founded/not-founded.component';
+import {NotFoundedComponent} from './components/not-founded/not-founded.component';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyA_sf-uY_LgmpuCR3BX4ptNgSIyZcR9WRc',
