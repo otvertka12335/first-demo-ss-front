@@ -9,7 +9,7 @@
           <form class="form-signup" [formGroup]="registrationForm" (ngSubmit)="createUser()" *ngIf="!showSpinner">
             <mat-form-field class="form-label-group">
               <input matInput type="text" id="name" name="name"
-                     placeholder="FirstName" formControlName="name">
+                     placeholder="First Name" formControlName="name">
               <div *ngIf="registrationForm.get('name').invalid &&
               (registrationForm.get('name').dirty || registrationForm.get('name').touched)">
                 <small class="form-text text-danger"

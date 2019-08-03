@@ -44,7 +44,6 @@ export class ConnectingComponent implements OnInit {
     const user = this.userService.getPgUserFromStorage();
     this.teamService.getAProjectWhereUserExist(user.id).subscribe((res: any) => {
       this.projects = res.data;
-      console.log(this.projects);
       this.dataSource = new MatTableDataSource(this.projects);
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;

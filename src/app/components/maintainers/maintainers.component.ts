@@ -18,11 +18,9 @@ export class MaintainersComponent implements OnInit, AfterViewInit, OnDestroy {
 
   /** control for the selected bank for multi-selection */
   public bankMultiCtrl: FormControl = new FormControl();
-  public devMultiCtrl: FormControl = new FormControl();
 
   /** control for the MatSelect filter keyword multi-selection */
   public bankMultiFilterCtrl: FormControl = new FormControl();
-  public devMultiFilterCtrl: FormControl = new FormControl();
 
   /** list of users filtered by search keyword */
   public filteredBanksMulti: ReplaySubject<any[]> = new ReplaySubject<any[]>(1);
@@ -31,6 +29,7 @@ export class MaintainersComponent implements OnInit, AfterViewInit, OnDestroy {
 
   /** Subject that emits when the component has been destroyed. */
   protected _onDestroy = new Subject<void>();
+  private existsValues: ReplaySubject<any[]>;
 
 
   constructor(private userService: UserService,
@@ -44,16 +43,14 @@ export class MaintainersComponent implements OnInit, AfterViewInit, OnDestroy {
       this.users = res.data;
       // set initial selection
       let selectedMaintainers;
-      let selectedDevelopers;
       this.teamService.getTeamOfProject(this.data.id).subscribe(re => {
 
         selectedMaintainers = re.data.filter(f => f.role === 'maintainer');
-        selectedDevelopers = re.data.filter(f => f.role === 'developer');
 
         selectedMaintainers = selectedMaintainers.map(m => Object.create({id: m.user}));
-        selectedDevelopers = selectedDevelopers.map(m => Object.create({id: m.user}));
 
         this.bankMultiCtrl.setValue(selectedMaintainers);
+        this.existsValues = selectedMaintainers;
         this.filteredBanksMulti.next(this.users.slice());
       });
 
@@ -76,6 +73,8 @@ export class MaintainersComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnDestroy() {
     this._onDestroy.next();
     this._onDestroy.complete();
+
+    console.log(this.existsValues);
   }
 
   /**

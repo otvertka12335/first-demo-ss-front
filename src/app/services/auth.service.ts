@@ -5,6 +5,7 @@ import {AngularFireAuth} from '@angular/fire/auth';
 import {HttpClient} from '@angular/common/http';
 import {BehaviorSubject} from 'rxjs';
 import {ToastrService} from 'ngx-toastr';
+import {JwtHelperService} from '@auth0/angular-jwt';
 
 @Injectable({
   providedIn: 'root'
@@ -21,43 +22,36 @@ export class AuthService {
               private http: HttpClient,
               private toast: ToastrService,
               private afAuth: AngularFireAuth) {
-    this.afAuth.authState.subscribe(user => {
-      if (user) {
-        this.user = user;
-        localStorage.setItem('user', JSON.stringify(this.user));
-      } else {
-        localStorage.setItem('user', null);
-      }
-    });
   }
-
-  private user: firebase.User;
 
   // Check existence of token
   static isAuthenticated(): boolean {
-    return JSON.parse(localStorage.getItem('user')) && JSON.parse(localStorage.getItem('pgUser'));
+    return JSON.parse(localStorage.getItem('pgUser'));
   }
 
-  async login(email: string, password: string) {
-    const result = await this.afAuth.auth.signInWithEmailAndPassword(email, password).then(() => {
-      this.userService.setUserToStorage(email);
-      this.loggedIn.next(true);
+  login(username: string, password: string) {
+    // const result = await this.afAuth.auth.signInWithEmailAndPassword(email, password).then(() => {
+    //   this.loggedIn.next(true);
+    // });
+    return this.http.post('/users/login', {
+      username,
+      password
     });
   }
 
-  async register(email: string, password: string, name: string) {
-    const result = await this.afAuth.auth.createUserWithEmailAndPassword(email, password).then(() => {
-      this.userService.addUser(email, name).subscribe((res: any) => {
-        // this.sendEmailVerification();
-        this.toast.success(res.message, 'Registration Success');
-        this.router.navigateByUrl('/login');
-      });
+  register(username: string, name: string, password: string) {
+    // const result = await this.afAuth.auth.createUserWithEmailAndPassword(email, password).then(() => {
+    //   this.userService.addUser(email, name).subscribe((res: any) => {
+    //     // this.sendEmailVerification();
+    //     this.toast.success(res.message, 'Registration Success');
+    //     this.router.navigateByUrl('/login');
+    //   });
+    // });
+    return this.http.post('/users', {
+      username,
+      name,
+      password
     });
-  }
-
-  async sendEmailVerification() {
-    await this.afAuth.auth.currentUser.sendEmailVerification();
-    this.router.navigate(['verify-email']);
   }
 
   async logout() {
@@ -66,5 +60,11 @@ export class AuthService {
     // localStorage.removeItem('pgUser');
     localStorage.clear();
     this.loggedIn.next(false);
+  }
+
+  setStorage(token) {
+    const jwt = new JwtHelperService();
+    const decodedToken = jwt.decodeToken(token);
+    this.userService.setUserToStorage(decodedToken.username);
   }
 }

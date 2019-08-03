@@ -57,21 +57,19 @@ const firebaseConfig = {
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
+    MaterialModule,
     FormsModule,
+    AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
     NgbModule,
     OrderModule,
     FlexLayoutModule,
     AngularResizedEventModule,
-    //  Firebase
-    AngularFireModule.initializeApp(firebaseConfig),
     AngularFireAuthModule,
-    // MATERIAL
-    SnackbarModule.forRoot(),
-    MaterialModule,
     NgxMatSelectSearchModule,
+    AngularFireModule.initializeApp(firebaseConfig),
+    SnackbarModule.forRoot(),
     ToastrModule.forRoot({
       timeOut: 3000,
       positionClass: 'toast-bottom-center',
@@ -79,8 +77,7 @@ const firebaseConfig = {
       countDuplicates: true,
       progressBar: true,
       progressAnimation: 'decreasing',
-    }) // ToastrModule added
-
+    })
   ],
   providers: [
     {
