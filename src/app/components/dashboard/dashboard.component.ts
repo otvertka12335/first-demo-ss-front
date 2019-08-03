@@ -20,12 +20,15 @@ import {debounceTime, distinctUntilChanged} from 'rxjs/operators';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
+  // CONSTANTS
+  private dialogWidth = '450px';
+  user = this.userService.getPgUserFromStorage();
+
+
   projects: Project[];
   user: User;
   displayedColumns: string[] = ['name', 'description', 'creator', 'actions'];
   dataSource;
-  currentScreenWidth = '';
-  flexMediaWatcher: Subscription;
 
   private subject: Subject<string> = new Subject();
 
@@ -43,29 +46,10 @@ export class DashboardComponent implements OnInit {
               private toast: ToastService,
               private dialog: MatDialog,
               private mediaObserver: MediaObserver) {
-    this.flexMediaWatcher = mediaObserver.media$.subscribe((change: MediaChange) => {
-      if (change.mqAlias !== this.currentScreenWidth) {
-        this.currentScreenWidth = change.mqAlias;
-        this.setupTable();
-      }
-    }); // Be sure to unsubscribe from this in onDestroy()!
   }
 
   ngOnInit() {
-    const user = this.userService.getPgUserFromStorage();
-    this.getAllProjectForUser(user.id);
-    // SEARCH WITH DEBOUNCE
-    this.subject.pipe(
-      // filter(f => f.length > 2),
-      debounceTime(750),
-      distinctUntilChanged()
-    ).subscribe(searchTextValue => {
-      if (searchTextValue.length !== 0) {
-        this.getAllProjectForUserUsingSearch(user.id, searchTextValue);
-      } else {
-        this.getAllProjectForUser(user.id);
-      }
-    });
+    this.getAllProjectForUser(this.user.id);
   }
 
   setData() {
@@ -73,16 +57,6 @@ export class DashboardComponent implements OnInit {
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
     this.emptyFlag = !this.dataSource.data.length;
-  }
-
-  setupTable() {
-    this.displayedColumns = ['name', 'description', 'creator', 'actions'];
-    if (this.currentScreenWidth === 'xs') { // only display internalId on larger screens
-      // this.displayedColumns.shift();
-      this.displayedColumns = this.displayedColumns.filter(res => {
-        return res !== 'description';
-      });
-    }
   }
 
   // Open new page with project details
@@ -93,7 +67,7 @@ export class DashboardComponent implements OnInit {
 
   addProject() {
     const dialogRef = this.dialog.open(CreateProjectComponent, {
-      width: '450px'
+      width: this.dialogWidth
     });
     dialogRef.componentInstance.project = {
       userId: this.userService.getPgUserFromStorage().id
@@ -127,7 +101,7 @@ export class DashboardComponent implements OnInit {
 
   editProject(project) {
     const dialogRef = this.dialog.open(CreateProjectComponent, {
-      width: '450px'
+      width: this.dialogWidth
     });
     dialogRef.componentInstance.project = project;
     dialogRef.afterClosed().subscribe((data: any) => {
@@ -156,7 +130,7 @@ export class DashboardComponent implements OnInit {
 
   removeProject(id: number) {
     const dialogRef = this.dialog.open(ConfirmComponent, {
-      width: '350px',
+      width: this.dialogWidth,
       data: 'Do you confirm the deletion of this data?'
     });
     dialogRef.afterClosed().subscribe(result => {
@@ -172,8 +146,12 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  applyFilter(filterValue: string) {
-    this.subject.next(filterValue);
+  searchProjects(searchValue: string) {
+    if (searchValue.length !== 0) {
+      this.getAllProjectForUserUsingSearch(this.user.id, searchValue);
+    } else {
+      this.getAllProjectForUser(this.user.id);
+    }
   }
 
   getAllProjectForUser(id) {

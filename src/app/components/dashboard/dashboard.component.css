@@ -40,3 +40,33 @@ mat-paginator {
   justify-content: center;
   margin: 1em 0;
 }
+
+.table-upper-block {
+  display: flex;
+}
+
+.table-upper-block mat-form-field {
+  width: 85%;
+}
+
+.table-upper-block div {
+  margin: .75em;
+}
+
+@media screen and (max-width: 360px){
+  .table-upper-block {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .table-upper-block mat-form-field {
+    width: 100%;
+  }
+  .table-upper-block div {
+    width: 100%;
+    margin: 15px auto;
+  }
+  .table-upper-block div button {
+    width: 100%;
+  }
+}
