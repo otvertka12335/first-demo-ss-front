@@ -22,7 +22,7 @@ import {debounceTime, distinctUntilChanged} from 'rxjs/operators';
 export class DashboardComponent implements OnInit {
   // CONSTANTS
   private dialogWidth = '450px';
-  user = this.userService.getPgUserFromStorage();
+  pgUser = this.userService.getPgUserFromStorage();
 
 
   projects: Project[];
@@ -44,12 +44,11 @@ export class DashboardComponent implements OnInit {
               private modalService: NgbModal,
               private router: Router,
               private toast: ToastService,
-              private dialog: MatDialog,
-              private mediaObserver: MediaObserver) {
+              private dialog: MatDialog) {
   }
 
   ngOnInit() {
-    this.getAllProjectForUser(this.user.id);
+    this.getAllProjectForUser(this.pgUser.id);
   }
 
   setData() {
@@ -148,9 +147,9 @@ export class DashboardComponent implements OnInit {
 
   searchProjects(searchValue: string) {
     if (searchValue.length !== 0) {
-      this.getAllProjectForUserUsingSearch(this.user.id, searchValue);
+      this.getAllProjectForUserUsingSearch(this.pgUser.id, searchValue);
     } else {
-      this.getAllProjectForUser(this.user.id);
+      this.getAllProjectForUser(this.pgUser.id);
     }
   }
 
