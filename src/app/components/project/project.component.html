@@ -57,7 +57,7 @@
       </mat-list>
 
       <div class="manage-block">
-        <button mat-raised-button color="primary" (click)="addTeamMates()">
+        <button mat-raised-button color="primary" (click)="addTeamMates()" [hidden]="!canManage">
           Manage Team
         </button>
       </div>

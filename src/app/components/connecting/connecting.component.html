@@ -1,50 +1,53 @@
 <div class="container">
-  <table mat-table [dataSource]="dataSource" class="mat-elevation-z5"
-         matSort>
+  <div *ngIf="!emptyFlag">
 
-    <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Name</th>
-      <td mat-cell *matCellDef="let element"> {{element.project_id.name}}</td>
-    </ng-container>
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z5"
+           matSort>
 
-    <ng-container matColumnDef="description">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Description</th>
-      <td mat-cell *matCellDef="let element">
-        {{element.project_id.description.length > 35 ? (element.project_id.description | slice:0:35) + '...' :
-        (element.project_id.description)}}
-      </td>
-    </ng-container>
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Name</th>
+        <td mat-cell *matCellDef="let element"> {{element.project_id.name}}</td>
+      </ng-container>
 
-    <ng-container matColumnDef="creator">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Role</th>
-      <td mat-cell *matCellDef="let element"> {{element.role}}</td>
-    </ng-container>
+      <ng-container matColumnDef="description">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Description</th>
+        <td mat-cell *matCellDef="let element">
+          {{element.project_id.description.length > maxDescriptionLength ? (element.project_id.description |
+          slice:0:maxDescriptionLength) + '...' :
+          (element.project_id.description)}}
+        </td>
+      </ng-container>
 
-    <ng-container matColumnDef="actions">
-      <th mat-header-cell *matHeaderCellDef></th>
-      <td mat-cell *matCellDef="let element" (click)="$event.stopPropagation()">
-        <button mat-icon-button aria-label="" (click)="editProject(element)"
-                *ngIf="element.role === 'developer' || element.role === 'maintainer'">
-          <mat-icon>edit</mat-icon>
-        </button>
-        <button mat-icon-button aria-label="" (click)="removeProject(element.project_id.id)"
-                *ngIf="element.role === 'maintainer'">
-          <mat-icon>delete</mat-icon>
-        </button>
-      </td>
-    </ng-container>
+      <ng-container matColumnDef="creator">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Role</th>
+        <td mat-cell *matCellDef="let element"> {{element.role}}</td>
+      </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="showInfo(row)"></tr>
-  </table>
-  <mat-paginator #paginator class="mat-elevation-z3"
-                 [pageIndex]="0"
-                 [pageSize]="10"
-                 [pageSizeOptions]="[5, 10, 25, 100]">
-  </mat-paginator>
-  <div class="fixed-block">
-    <button mat-fab aria-label="" (click)="addProject()">
-      <mat-icon>add</mat-icon>
-    </button>
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let element" (click)="$event.stopPropagation()">
+          <button mat-icon-button aria-label="" (click)="editProject(element)"
+                  *ngIf="element.role === 'developer' || element.role === 'maintainer'">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button aria-label="" (click)="removeProject(element.project_id.id)"
+                  *ngIf="element.role === 'maintainer'">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="showInfo(row)"></tr>
+    </table>
+    <mat-paginator #paginator class="mat-elevation-z3"
+                   [pageIndex]="0"
+                   [pageSize]="10"
+                   [length]="length"
+                   [pageSizeOptions]="[5, 10, 25, 100]">
+    </mat-paginator>
+  </div>
+  <div *ngIf="emptyFlag" class="empty">
+    <h5>You not connected to any project</h5>
   </div>
 </div>

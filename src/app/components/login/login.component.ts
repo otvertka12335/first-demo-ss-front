@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
       },
       err => {
         this.showSpinner = false;
-        this.toast.error(err, 'Login Error');
+        this.toast.error('', 'Login Error');
       }
     );
   }

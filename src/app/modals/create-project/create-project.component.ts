@@ -26,7 +26,6 @@ export class CreateProjectComponent implements OnInit {
 
   ngOnInit() {
     // this.project.userId = this.userService.getPgUserFromStorage();
-    console.log(this.project);
     this.myForm = this.fb.group({
       name: [this.project.name,
         Validators.compose([

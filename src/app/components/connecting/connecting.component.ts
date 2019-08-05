@@ -17,14 +17,17 @@ import {ConfirmComponent} from '../../modals/confirm/confirm.component';
   styleUrls: ['./connecting.component.css']
 })
 export class ConnectingComponent implements OnInit {
+  maxDescriptionLength = 35;
 
   projects: Project[];
   user: User;
   displayedColumns: string[] = ['name', 'description', 'creator', 'actions'];
-  dataSource;
+  dataSource: any;
 
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+  emptyFlag: boolean;
+  private length: any;
 
   constructor(private teamService: TeamService,
               private userService: UserService,
@@ -46,6 +49,8 @@ export class ConnectingComponent implements OnInit {
       this.dataSource = new MatTableDataSource(this.projects);
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
+      this.emptyFlag = !this.dataSource.data.length;
+      this.length = this.dataSource.data.length;
     });
   }
 

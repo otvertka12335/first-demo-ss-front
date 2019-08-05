@@ -1,5 +1,4 @@
 <div class="container">
-  <div *ngIf="!emptyFlag">
     <div class="table-upper-block">
       <mat-form-field>
         <input matInput #searchInput placeholder="Search by Name"
@@ -15,7 +14,7 @@
         </button>
       </div>
     </div>
-
+  <div *ngIf="!emptyFlag">
 
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z5"
            matSort>
@@ -27,8 +26,8 @@
 
       <ng-container matColumnDef="description">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Description</th>
-        <td mat-cell *matCellDef="let element"> {{element.description.length > 35 ?
-          (element.description | slice:0:35) + '...' : (element.description)}}
+        <td mat-cell *matCellDef="let element"> {{element.description.length > maxDescriptionLength ?
+          (element.description | slice:0:maxDescriptionLength) + '...' : (element.description)}}
         </td>
       </ng-container>
 
@@ -55,6 +54,7 @@
     <mat-paginator #paginator class="mat-elevation-z3"
                    [pageIndex]="0"
                    [pageSize]="10"
+                   [length]="length"
                    [pageSizeOptions]="[5, 10, 25, 100]">
     </mat-paginator>
   </div>

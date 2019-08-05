@@ -8,11 +8,9 @@ import {User} from '../../models/user.model';
 import {CreateProjectComponent} from '../../modals/create-project/create-project.component';
 import {Router} from '@angular/router';
 import {MatDialog, MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
-import {Subject, Subscription} from 'rxjs';
-import {MediaChange, MediaObserver} from '@angular/flex-layout';
+import {Subject} from 'rxjs';
 import {ToastService} from '../../services/toast.service';
 import {ConfirmComponent} from '../../modals/confirm/confirm.component';
-import {debounceTime, distinctUntilChanged} from 'rxjs/operators';
 
 @Component({
   selector: 'app-dashboard',
@@ -22,13 +20,15 @@ import {debounceTime, distinctUntilChanged} from 'rxjs/operators';
 export class DashboardComponent implements OnInit {
   // CONSTANTS
   private dialogWidth = '450px';
+  maxDescriptionLength = 35;
   pgUser = this.userService.getPgUserFromStorage();
+  length: any;
 
 
   projects: Project[];
   user: User;
   displayedColumns: string[] = ['name', 'description', 'creator', 'actions'];
-  dataSource;
+  dataSource: any;
 
   private subject: Subject<string> = new Subject();
 
@@ -53,6 +53,7 @@ export class DashboardComponent implements OnInit {
 
   setData() {
     this.dataSource = new MatTableDataSource(this.projects);
+    this.length = this.dataSource.data.length;
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
     this.emptyFlag = !this.dataSource.data.length;

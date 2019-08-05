@@ -15,7 +15,7 @@ import {ToastService} from '../../services/toast.service';
 })
 export class ProjectComponent implements OnInit {
 
-  canEdit = true;
+  canManage = true;
 
   project: Project;
   maintainers = [];
@@ -52,15 +52,17 @@ export class ProjectComponent implements OnInit {
   }
 
   getProject() {
-    this.projectService.currentProject.subscribe((res: any) => {
-      if (res) {
-        this.project = res;
-      } else {
-        this.projectService.getProjectById(this.router.snapshot.params.id).subscribe((project: any) => {
-          this.project = project.data;
-        });
-      }
+    // this.projectService.currentProject.subscribe((res: any) => {
+    //   if (res) {
+    //     this.project = res;
+    //     this.checkAccess();
+    //   } else {
+    this.projectService.getProjectById(this.router.snapshot.params.id).subscribe((project: any) => {
+      this.project = project.data;
+      this.checkAccess();
     });
+    //   }
+    // });
   }
 
   addTeamMates() {
@@ -88,28 +90,26 @@ export class ProjectComponent implements OnInit {
     event.newWidth <= 450 ? this.mobile = false : this.mobile = true;
   }
 
-  checkAccess(): boolean {
+  checkAccess() {
     const currentId = JSON.parse(localStorage.getItem('pgUser')).id;
-    if (currentId === this.project.userId) {
-      this.canEdit = true;
-      return true;
-    }
-    const m = this.maintainers.some((f: any) => {
-      return f.user === currentId;
-    });
-
-    const d = this.developers.some((f: any) => {
-      return f.user === currentId;
-    });
-
-    if (m || d) {
-      this.canEdit = false;
-      return true;
-    }
-
-    this.toast.showError('Very clever?)', 'Project access deny');
-    this.route.navigate(['/']);
-    return false;
+    this.canManage = currentId === this.project.userId;
+    console.log(this.canManage);
+    // const m = this.maintainers.some((f: any) => {
+    //   return f.user === currentId;
+    // });
+    //
+    // const d = this.developers.some((f: any) => {
+    //   return f.user === currentId;
+    // });
+    //
+    // if (m || d) {
+    //   this.canManage = false;
+    //   return true;
+    // }
+    //
+    // this.toast.showError('Very clever?)', 'Project access deny');
+    // this.route.navigate(['/']);
+    // return false;
   }
 
 }
