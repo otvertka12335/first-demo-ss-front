@@ -30,7 +30,7 @@ export class CreateProjectComponent implements OnInit {
       name: [this.project.name,
         Validators.compose([
           Validators.required,
-          Validators.maxLength(15),
+          Validators.maxLength(25),
           Validators.minLength(3)
         ])],
       description: [this.project.description,

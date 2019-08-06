@@ -1,4 +1,12 @@
 <app-tollbar></app-tollbar>
-<div>
+<div *ngIf="isConnected">
   <router-outlet></router-outlet>
+</div>
+<div *ngIf="!isConnected">
+  <mat-progress-spinner
+    class="spinner"
+    color="warn"
+    mode="indeterminate"
+    value="50">
+  </mat-progress-spinner>
 </div>

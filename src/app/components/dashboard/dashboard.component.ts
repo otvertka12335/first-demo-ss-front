@@ -33,8 +33,8 @@ export class DashboardComponent implements OnInit {
   private subject: Subject<string> = new Subject();
 
 
-  @ViewChild(MatSort, {static: true}) sort: MatSort;
-  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+  @ViewChild(MatSort, {static: false}) sort: MatSort;
+  @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
   emptyFlag: boolean;
 
 
