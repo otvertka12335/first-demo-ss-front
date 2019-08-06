@@ -23,7 +23,7 @@
           <mat-icon>arrow_drop_down</mat-icon>
         </button>
         <mat-menu #personal="matMenu">
-          <div class="person-data">
+          <div class="person-data" *ngIf="currentUser">
             <p><b>{{currentUser.name}}</b></p>
             <p>@{{currentUser.username}}</p>
           </div>

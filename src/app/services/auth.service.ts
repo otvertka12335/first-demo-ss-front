@@ -11,7 +11,6 @@ import {JwtHelperService} from '@auth0/angular-jwt';
   providedIn: 'root'
 })
 export class AuthService {
-
   loggedIn = new BehaviorSubject<boolean>(!!JSON.parse(localStorage.getItem('pgUser'))); // {1}
 
   constructor(private userService: UserService,
@@ -45,6 +44,7 @@ export class AuthService {
     this.afAuth.auth.signOut();
     localStorage.clear();
     this.loggedIn.next(false);
+    this.userService.currentUser$.next(null);
   }
 
   setStorage(token) {
