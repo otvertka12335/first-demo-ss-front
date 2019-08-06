@@ -2,9 +2,9 @@
 <div *ngIf="isConnected">
   <router-outlet></router-outlet>
 </div>
-<div *ngIf="!isConnected">
+<div *ngIf="!isConnected" class="center">
+  <h3>Your connection is lost</h3>
   <mat-progress-spinner
-    class="spinner"
     color="warn"
     mode="indeterminate"
     value="50">

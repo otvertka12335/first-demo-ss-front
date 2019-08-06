@@ -70,3 +70,8 @@ mat-paginator {
     width: 100%;
   }
 }
+
+.create-button {
+  margin-left: 0 !important;
+  margin-right: 5% !important;
+}

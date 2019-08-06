@@ -24,3 +24,11 @@ a:visited {
 :host button:focus {
   outline: 0;
 }
+
+.center {
+  margin: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
