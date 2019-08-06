@@ -12,7 +12,7 @@ import {JwtHelperService} from '@auth0/angular-jwt';
 })
 export class AuthService {
 
-  private loggedIn = new BehaviorSubject<boolean>(false); // {1}
+  loggedIn = new BehaviorSubject<boolean>(!!JSON.parse(localStorage.getItem('pgUser'))); // {1}
 
   constructor(private userService: UserService,
               private router: Router,

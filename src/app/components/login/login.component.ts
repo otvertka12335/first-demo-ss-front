@@ -26,6 +26,7 @@ export class LoginComponent implements OnInit {
       (res: any) => {
         this.showSpinner = false;
         this.authService.setStorage(res.data);
+        this.authService.loggedIn.next(true);
       },
       err => {
         this.showSpinner = false;

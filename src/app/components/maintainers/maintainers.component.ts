@@ -73,8 +73,6 @@ export class MaintainersComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnDestroy() {
     this._onDestroy.next();
     this._onDestroy.complete();
-
-    console.log(this.existsValues);
   }
 
   /**

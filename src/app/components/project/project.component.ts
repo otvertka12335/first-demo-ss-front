@@ -93,7 +93,6 @@ export class ProjectComponent implements OnInit {
   checkAccess() {
     const currentId = JSON.parse(localStorage.getItem('pgUser')).id;
     this.canManage = currentId === this.project.userId;
-    console.log(this.canManage);
     // const m = this.maintainers.some((f: any) => {
     //   return f.user === currentId;
     // });

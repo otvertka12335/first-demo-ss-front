@@ -39,3 +39,7 @@ mat-paginator {
   justify-content: center;
   margin: 1em 0;
 }
+
+.container {
+  padding-top: 15px;
+}
