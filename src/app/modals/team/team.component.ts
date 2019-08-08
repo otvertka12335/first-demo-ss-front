@@ -12,6 +12,7 @@ export class TeamComponent implements OnInit {
   private team: any;
   private developers: any;
   private maintainers: any;
+  selectedTab = 0;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any,
               private dialogRef: MatDialogRef<TeamComponent>) {
@@ -20,6 +21,9 @@ export class TeamComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  openContentOne() {
+      this.selectedTab = this.selectedTab - 1;
+  }
   receiveDevelopers($event) {
     this.developers = $event;
   }
