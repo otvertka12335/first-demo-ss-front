@@ -1,37 +1,42 @@
-<mat-horizontal-stepper #stepper>
-  <mat-step [stepControl]="firstFormGroup">
-    <form>
-      <ng-template matStepLabel>Maintainers</ng-template>
-      <app-maintainers (maintainersEvent)="receiveMaintainers($event)"></app-maintainers>
-    </form>
-  </mat-step>
-  <mat-step [stepControl]="secondFormGroup">
-    <form>
-      <ng-template matStepLabel>Developers</ng-template>
-      <app-developers (developersEvent)="receiveDevelopers($event)"></app-developers>
-    </form>
-  </mat-step>
-  <mat-step>
-    <ng-template matStepLabel>Done</ng-template>
-    <div class="done-container">
-      <div class="maintainers">
-        <p> Your maintainers: </p>
-        <ul *ngFor="let mai of maintainers">
-          <li>{{mai.name}}</li>
-        </ul>
+<mat-tab-group mat-stretch-tabs [(selectedIndex)]="selectedTab">
+  <mat-tab label="Maintaners">
+      <ng-template matTabContent>
+        <h6>Maintainers</h6>
+        <app-maintainers
+          (maintainersEvent)="receiveMaintainers($event)"
+        ></app-maintainers>
+      </ng-template>
+  </mat-tab>
+  <mat-tab label="Developers">
+    <ng-template matTabContent>
+      <h6>Developers</h6>
+      <app-developers
+        (developersEvent)="receiveDevelopers($event)"
+      ></app-developers>
+    </ng-template>
+  </mat-tab>
+  <mat-tab label="Finish">
+    <ng-template matTabContent
+      >Done
+      <div class="done-container">
+        <div class="maintainers">
+          <p>Your maintainers:</p>
+          <ul *ngFor="let mai of maintainers">
+            <li>{{ mai.name }}</li>
+          </ul>
+        </div>
+        <div class="developers">
+          <p>Your developers:</p>
+          <ul *ngFor="let dev of developers">
+            <li>{{ dev.name }}</li>
+          </ul>
+        </div>
       </div>
-      <div class="developers">
-        <p> Your developers: </p>
-        <ul *ngFor="let dev of developers">
-          <li>{{dev.name}}</li>
-        </ul>
+      <p>Do you want to save this?</p>
+      <div>
+        <button mat-button (click)="modalClose()">Cancel</button>
+        <button mat-button mat-dialog-close (click)="modalSave()">Save</button>
       </div>
-    </div>
-    <p>Do you want to save this?</p>
-    <div>
-      <button mat-button matStepperPrevious>Back</button>
-      <button mat-button matStepperPrevious (click)="modalClose()">Cancel</button>
-      <button mat-button mat-dialog-close (click)="modalSave()">Save</button>
-    </div>
-  </mat-step>
-</mat-horizontal-stepper>
+    </ng-template>
+  </mat-tab>
+</mat-tab-group>
