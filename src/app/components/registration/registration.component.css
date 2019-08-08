@@ -1,13 +1,13 @@
 body {
   background: #007bff;
-  background: linear-gradient(to right, #0062E6, #33AEFF);
+  background: linear-gradient(to right, #0062e6, #33aeff);
 }
 
 .card-signin {
   border: 0;
   border-radius: 1rem;
   -webkit-box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
-         box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
 }
 
 .card-signin .card-title {
@@ -29,8 +29,8 @@ body {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
 }
 
 .my-row {
@@ -38,13 +38,13 @@ body {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
   -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
   -ms-flex-item-align: center;
-      align-self: center;
+  align-self: center;
 }
 
 .my-row-header {
@@ -56,13 +56,13 @@ body {
 }
 
 .card-content-center,
-.card-content-actions  {
+.card-content-actions {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
--webkit-box-pack: center;
-    -ms-flex-pack: center;
-        justify-content: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
 }
 
 .example-full-width {

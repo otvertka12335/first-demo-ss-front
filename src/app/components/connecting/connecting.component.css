@@ -27,27 +27,27 @@ mat-paginator {
   width: 100%;
 }
 
-.toolbar-connecting{
+.toolbar-connecting {
   margin-top: 30px;
 }
 
 .fixed-block {
-  padding-top: .3rem;
+  padding-top: 0.3rem;
   width: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: end;
-      -ms-flex-pack: end;
-          justify-content: flex-end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
 }
 .empty {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
   margin: 1em 0;
 }
 
