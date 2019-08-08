@@ -1,4 +1,6 @@
 .project-header {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
 }
 button:focus {
@@ -9,7 +11,11 @@ button:focus {
   padding: 0 !important;
 }
 .manage-block {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: flex-end;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
 }
 

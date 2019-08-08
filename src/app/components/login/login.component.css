@@ -29,27 +29,30 @@ body {
   letter-spacing: .1rem;
   font-weight: bold;
   padding: 1rem;
+  -webkit-transition: all 0.2s;
+  -o-transition: all 0.2s;
   transition: all 0.2s;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
 }
 
-.form-label-group {
+.form-label-group,
+.card-content-center,
+.card-content-actions  {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 .form-button {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: space-around;
-}
-
-.card-content-center {
-  display: flex;
-  justify-content: center;
-}
-
-.card-content-actions {
-  display: flex;
-  justify-content: center;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
 }
 
 .example-full-width {
